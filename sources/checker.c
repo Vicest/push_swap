@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 19:21:05 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/23 15:22:28 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/03/24 14:48:29 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_args(int argc, char **args)
 	long	num;
 	char	*end;
 
-	while(argc > 1)
+	while(--argc >= 0)
 	{
 		end = args[argc];
 		num = ft_strtol(args[argc], end);
@@ -35,13 +35,12 @@ void	check_args(int argc, char **args)
 			error();
 		else
 			printf("Num is: %ld\n", num);
-		argc--;
 	}
 }
 
 int	main(int argc, char **args)
 {
-	check_args(argc, args);
+	check_args(argc - 1, args + 1);
 	exit(0);
 }
 
