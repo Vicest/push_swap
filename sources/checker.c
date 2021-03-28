@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 19:21:05 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/24 14:48:29 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/03/28 16:57:29 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,42 @@
 #include "checker.h"
 
 #include <stdio.h>
-void	error()
+void	exit_handler(char status, void *stc_mem)
 {
-	write(2, "Error\n", 6);
-	exit(1);
+	if (stc_mem)
+		free(stc_mem);
+	if (status == ERROR)
+		write(2, "Error\n", 6);
+	system("leaks checker");
+	exit(status);
 }
 
-void	check_args(int argc, char **args)
+static void	load_stack(t_psh_swp game, int cnt, char **nums)
 {
-	long	num;
 	char	*end;
 
-	while(--argc >= 0)
+	game.stack = malloc(cnt * sizeof(int));
+	while(--cnt >= 0)
 	{
-		end = args[argc];
-		num = ft_strtol(args[argc], end);
-		if (*end || (num == 0 && errno == EINVAL) ||
-			num > INT_MAX || num < INT_MIN)
-			error();
-		else
-			printf("Num is: %ld\n", num);
+		game.stack[cnt] = ft_strtol(nums[cnt], &end);
+		if (*end || (game.stack[cnt] == 0 && errno == EINVAL) ||
+			game.stack[cnt] > INT_MAX || game.stack[cnt] < INT_MIN)
+			exit_handler(ERROR, game.stack);
 	}
 }
+/*
+static void	read_instruction
 
 int	main(int argc, char **args)
 {
-	check_args(argc - 1, args + 1);
+	t_psh_swp	game;
+
+	load_stack(game, argc - 1, args + 1);
+	while (read
+	read_instruction();
 	exit(0);
 }
+*/
 
 
 
