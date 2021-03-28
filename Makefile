@@ -6,11 +6,14 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/03/24 14:34:01 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/03/28 21:57:53 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CHK_FILES :=
+CHK_FILES += gnl.c
+CHK_FILES += exit_handler.c
+CHK_FILES += swap.c
 CHK_FILES += checker.c
 
 PSH_FILES :=

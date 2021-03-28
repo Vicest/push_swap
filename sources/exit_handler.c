@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   exit_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/21 19:32:53 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/28 21:45:59 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/03/28 21:31:58 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/03/28 21:50:18 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# include <stdlib.h>
-# include <unistd.h>
-# include "libft/libft.h" //TODO Cp to includes
+#include "checker.h"
 
-# define SUCCS 0
-# define ERROR 1
-
-typedef struct s_psh_swp
+void	exit_handler(char status, void *stc_mem)
 {
-	size_t	size;
-	size_t	top_a;
-	int		*stack;
-}			t_psh_swp;
-
-int		get_next_line(char **);
-void	swap(t_psh_swp game, char *spec);
-void	exit_handler(char status, void *stc_mem);
-#endif
+	if (stc_mem)
+		free(stc_mem);
+	if (status == ERROR)
+		write(2, "Error\n", 6);
+	system("leaks checker");
+	exit(status);
+}
