@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   print_sts.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/21 19:32:53 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/29 14:25:54 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/03/29 14:01:19 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/03/29 14:48:59 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# include <stdlib.h>
-# include <unistd.h>
-# include "libft/libft.h" //TODO Cp to includes
+#include "checker.h"
+#include <stdio.h>
 
-# define SUCCS 0
-# define ERROR 1
-
-typedef struct s_psh_swp
+void	print_sts(t_psh_swp game)
 {
-	size_t	size;
-	size_t	top_a;
-	int		*stack;
-}			t_psh_swp;
+	int i;
 
-int		get_next_line(char **);
-void	swap(t_psh_swp game, char *spec);
-void	exit_handler(char status, void *stc_mem);
-void	print_sts(t_psh_swp game);
-#endif
+	i = ft_max(game.top_a, game.size - game.top_a);
+	while (i >= 0)
+	{
+		if (i <= (int)game.top_a)
+			printf("|%d|", game.stack[i]);
+		else
+			printf("| |");
+		printf("\n");
+		i--;
+	}
+}

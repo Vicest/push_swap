@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/21 19:32:53 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/29 14:25:54 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/03/29 13:17:46 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/03/29 13:56:53 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# include <stdlib.h>
-# include <unistd.h>
-# include "libft/libft.h" //TODO Cp to includes
+#include "checker.h"
 
-# define SUCCS 0
-# define ERROR 1
-
-typedef struct s_psh_swp
+static void	rrotate(int *start, int *end)
 {
-	size_t	size;
-	size_t	top_a;
-	int		*stack;
-}			t_psh_swp;
+	int	aux;
+	int	i;
 
-int		get_next_line(char **);
-void	swap(t_psh_swp game, char *spec);
-void	exit_handler(char status, void *stc_mem);
-void	print_sts(t_psh_swp game);
-#endif
+	aux = *end;
+	i = end - start;
+	while (i > 0)
+	{
+		start[i] = start[i - 1];
+		i++;
+	}
+	start[0] = aux;
+}
+/*
+static void	rrotate(int *start, int *end)
+{
+	int	aux;
+	int	i;
+
+	aux = *start
+*/
+

@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/21 19:32:53 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/29 14:25:54 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/03/29 12:42:15 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/03/29 14:00:19 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# include <stdlib.h>
-# include <unistd.h>
-# include "libft/libft.h" //TODO Cp to includes
+#include "checker.h"
 
-# define SUCCS 0
-# define ERROR 1
-
-typedef struct s_psh_swp
+void	push(t_psh_swp game, char *spec)
 {
-	size_t	size;
-	size_t	top_a;
-	int		*stack;
-}			t_psh_swp;
-
-int		get_next_line(char **);
-void	swap(t_psh_swp game, char *spec);
-void	exit_handler(char status, void *stc_mem);
-void	print_sts(t_psh_swp game);
-#endif
+	if (spec[0] == 'a' && spec[1] == '\0')
+	{
+		if (game.top_a > 0)
+			game.top_a--;
+	}
+	else if (spec[0] == 'b' && spec[1] == '\0')
+	{
+		if (game.top_a < game.size)
+			game.top_a++;
+	}
+	else
+		exit_handler(ERROR, game.stack);
+}
