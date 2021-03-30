@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:01:19 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/29 14:48:59 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/03/30 14:52:02 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,26 @@
 
 void	print_sts(t_psh_swp game)
 {
-	int i;
+	int		*a;
+	int		*b;
+	int		w;
 
-	i = ft_max(game.top_a, game.size - game.top_a);
-	while (i >= 0)
+	w = 1;
+	a = game.stack;
+	b = game.max_i;
+	printf("[%1$6ca%1$6c][%1$6cb%1$6c]\n", ' ');
+	while (a <= game.top_a || b > game.top_a)
 	{
-		if (i <= (int)game.top_a)
-			printf("|%d|", game.stack[i]);
+		if (a <= game.top_a)
+			printf("|%13d|", *a);
 		else
-			printf("| |");
+			printf("|             |");
+		if (b > game.top_a)
+			printf("|%13d|", *b);
+		else
+			printf("|             |");
 		printf("\n");
-		i--;
+		a++;
+		b--;
 	}
 }
