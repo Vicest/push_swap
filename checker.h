@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 19:32:53 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/29 14:25:54 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/03/30 13:09:50 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@
 
 typedef struct s_psh_swp
 {
-	size_t	size;
-	size_t	top_a;
+	int		*max_i;
+	int		*top_a;
 	int		*stack;
 }			t_psh_swp;
 
 int		get_next_line(char **);
 void	swap(t_psh_swp game, char *spec);
+void	push(t_psh_swp *game, char *spec);
 void	exit_handler(char status, void *stc_mem);
 void	print_sts(t_psh_swp game);
+int		is_ordered(t_psh_swp game);
 #endif

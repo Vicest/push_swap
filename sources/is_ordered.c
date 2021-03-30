@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   is_ordered.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/29 12:42:15 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/30 12:40:22 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/03/30 12:48:17 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/03/30 13:33:09 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-void	push(t_psh_swp *game, char *spec)
+int	is_ordered(t_psh_swp game)
 {
-	if (spec[0] == 'b' && spec[1] == '\0')
+	if (game.top_a != game.max_i)
+		return (0);
+	while (game.stack < game.top_a)
 	{
-		if (game->top_a - game->stack >= 0)
-			game->top_a--;
+		if (game.stack[0] > game.stack[1])
+			return (0);
 	}
-	else if (spec[0] == 'a' && spec[1] == '\0')
-	{
-		if (game->max_i - game->top_a > 0)
-			game->top_a++;
-	}
-	else
-		exit_handler(ERROR, game->stack);
+	return (1);
 }
