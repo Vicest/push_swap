@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 19:21:05 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/30 13:48:05 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:20:10 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	apply_instruction(char *instr, t_psh_swp *game)
 	else if (*instr == 'p')
 		push(game, instr + 1);
 	else if (*instr == 'r')
-		; //rot(game, instr + 1);
+		rot(*game, instr + 1);
 	else
 		exit_handler(ERROR, game->stack);
 	print_sts(*game);

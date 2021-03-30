@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 15:13:24 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/30 12:25:31 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/03/30 14:47:59 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_swap(int *a, int *b)
 
 void	swap(t_psh_swp game, char *spec)
 {
-	if (spec[0] == '\0' ||!ft_strchr("abs", spec[0]) || spec[1] != '\0')
+	if (spec[0] == '\0' || !ft_strchr("abs", spec[0]) || spec[1] != '\0')
 		exit_handler(ERROR, game.stack);
 	if (spec[0] == 'a' || spec[0] == 's')
 	{

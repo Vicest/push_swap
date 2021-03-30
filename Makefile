@@ -6,7 +6,7 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/03/30 13:06:00 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/03/30 15:18:31 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ CHK_FILES += print_sts.c
 CHK_FILES += is_ordered.c
 CHK_FILES += gnl.c
 CHK_FILES += exit_handler.c
+CHK_FILES += rotate.c
 CHK_FILES += swap.c
 CHK_FILES += push.c
 CHK_FILES += checker.c

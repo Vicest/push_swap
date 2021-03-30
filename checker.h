@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 19:32:53 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/30 13:09:50 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:19:48 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_psh_swp
 }			t_psh_swp;
 
 int		get_next_line(char **);
+void	rot(t_psh_swp game, char *spec);
 void	swap(t_psh_swp game, char *spec);
 void	push(t_psh_swp *game, char *spec);
 void	exit_handler(char status, void *stc_mem);
