@@ -6,7 +6,7 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/03/30 15:18:31 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/03/31 13:26:16 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ NAME := game
 CC := gcc
 CFLAGS := -Wall -Werror -Wextra -I. -g
 
-.PHONY: all re clean fclean game
+.PHONY: all re clean fclean game norm
 all : $(NAME)
 
 checker : $(CHK_OBJ) libft/libft.a
@@ -60,6 +60,9 @@ $(OBJ_DIR)%.o :$(SRC_DIR)%.c
 	@mkdir -vp $(OBJ_DIR)
 	$(CC) $(CFLAGS) $<  -c -o $@
 	@echo "______________________________"
+
+norm :
+	@norminette $(CHK_SRC)
 
 clean :
 	@echo "Cleaning."

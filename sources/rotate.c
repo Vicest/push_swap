@@ -6,13 +6,13 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 13:17:46 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/30 15:16:51 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/03/31 14:54:57 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-static void	rrotate(int *start, int *end)
+static void	rotate(int *start, int *end)
 {
 	int	aux;
 
@@ -25,7 +25,7 @@ static void	rrotate(int *start, int *end)
 	end[0] = aux;
 }
 
-static void rotate(int *start, int *end)
+static void	rrotate(int *start, int *end)
 {
 	int	aux;
 
@@ -40,25 +40,24 @@ static void rotate(int *start, int *end)
 
 void	rot(t_psh_swp game, char *spec)
 {
-	if (ft_strcmp(spec, "ra"))
+	if (!ft_strcmp(spec, "a"))
 		rotate(game.stack, game.top_a);
-	else if (ft_strcmp(spec, "rb"))
-		rrotate(game.top_a, game.max_i);
-	else if (ft_strcmp(spec, "rr"))
+	else if (!ft_strcmp(spec, "b"))
+		rrotate(game.top_a + 1, game.max_i);
+	else if (!ft_strcmp(spec, "r"))
 	{
 		rotate(game.stack, game.top_a);
-		rrotate(game.top_a, game.max_i);
+		rrotate(game.top_a + 1, game.max_i);
 	}
-	else if (ft_strcmp(spec, "rra"))
+	else if (!ft_strcmp(spec, "ra"))
 		rrotate(game.stack, game.top_a);
-	else if (ft_strcmp(spec, "rrb"))
-		rotate(game.top_a, game.max_i);
-	else if (ft_strcmp(spec, "rrr"))
+	else if (!ft_strcmp(spec, "rb"))
+		rotate(game.top_a + 1, game.max_i);
+	else if (!ft_strcmp(spec, "rr"))
 	{
 		rrotate(game.stack, game.top_a);
-		rotate(game.top_a, game.max_i);
+		rotate(game.top_a + 1, game.max_i);
 	}
 	else
 		exit_handler(ERROR, game.stack);
 }
-

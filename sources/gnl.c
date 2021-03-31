@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 12:08:35 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/29 12:41:30 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:38:12 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 
 int	get_next_line(char **line)
 {
-	unsigned	len;
-	int			rout;
-	char		buf;
-	char		*aux;
+	char			*aux;
+	unsigned int	len;
+	int				rout;
+	char			buf;
 
 	*line = malloc(1);
 	(*line)[0] = 0;
@@ -28,6 +28,8 @@ int	get_next_line(char **line)
 	{
 		if (buf == '\n')
 			return (1);
+		else if (buf == '\0')
+			return (0);
 		len = ft_strlen(*line) + 1;
 		aux = malloc(sizeof(char) * (len + 1));
 		ft_strcpy(aux, *line);
