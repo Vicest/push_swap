@@ -6,11 +6,12 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/03/31 13:26:16 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/04/08 11:57:28 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CHK_FILES :=
+CHK_FILES += load_stack.c
 CHK_FILES += print_sts.c
 CHK_FILES += is_ordered.c
 CHK_FILES += gnl.c

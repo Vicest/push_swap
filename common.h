@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/21 19:32:53 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/04/06 13:03:42 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/04/06 12:49:43 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/04/06 13:41:27 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# include <unistd.h>
-# include "common.h"
+#ifndef COMMON_H
+# include "libft/libft.h" //TODO Cp to includes
+# define SUCCS 0
+# define ERROR 1
 
-void	rot(t_psh_swp game, char *spec);
-void	swap(t_psh_swp game, char *spec);
-void	push(t_psh_swp *game, char *spec);
-void	print_sts(t_psh_swp game);
-int		is_ordered(t_psh_swp game);
+typedef struct s_psh_swp
+{
+	int		*max_i;
+	int		*top_a;
+	int		*stack;
+}			t_psh_swp;
+
+int		get_next_line(char **);
+void	exit_handler(char status, void *stc_mem);
+void	load_stack(t_psh_swp *game, const char *nums);
 #endif
