@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:44:34 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/04/08 11:56:56 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/04/08 12:27:14 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	load_stack(t_psh_swp *game, const char *nums)
 		if (errno == ERANGE && (game->stack[len] & INT_MAX) == INT_MAX)
 				exit_handler(ERROR, game->stack);
 	}
-	if (has_dup(game->stack, game->max_i))
+	if (*end || has_dup(game->stack, game->max_i))
 		exit_handler(ERROR, game->stack);
 }
 

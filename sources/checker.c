@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 19:21:05 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/04/06 13:45:21 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/04/08 12:28:58 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	main(int argc, const char **args)
 	ft_bzero(&game, sizeof(t_psh_swp));
 	if (argc == 1)
 		exit_handler(SUCCS, game.stack);
+	else if (argc != 2)
+		exit_handler(ERROR, game.stack);
 	load_stack(&game, args[1]);
 	print_sts(game);
 	gnl_out = get_next_line(&instructions);
