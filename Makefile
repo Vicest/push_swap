@@ -6,12 +6,13 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/04/08 11:57:28 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/04/08 14:23:48 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CHK_FILES :=
 CHK_FILES += load_stack.c
+CHK_FILES += exit_handler.c
 CHK_FILES += print_sts.c
 CHK_FILES += is_ordered.c
 CHK_FILES += gnl.c
@@ -22,15 +23,18 @@ CHK_FILES += push.c
 CHK_FILES += checker.c
 
 PSH_FILES :=
+PSH_FILES += load_stack.c
+PSH_FILES += exit_handler.c
 PSH_FILES += push_swap.c
 
 SRC_DIR := sources/
 OBJ_DIR := objects/
 
 CHK_SRC :=  $(addprefix $(SRC_DIR), $(CHK_FILES))
+PHS_SRC :=  $(addprefix $(SRC_DIR), $(PSH_FILES))
 
 CHK_OBJ := $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(CHK_FILES)))
-PSH_OBJ := $(patsubst %.c, %.o, $(PSH_FILES))
+PSH_OBJ := $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(PSH_FILES)))
 
 SRC_BNS_FILES :=
 OBJ_BNS_FILES := $(patsubst %.c, %.o, $(SRC_BNS_FILES))
@@ -52,7 +56,8 @@ all : $(NAME)
 checker : $(CHK_OBJ) libft/libft.a
 	$(CC) $(CFLAGS) $(LIBFT) $^ -o $@
 
-push_swap : libft/libft.a
+push_swap : $(PSH_OBJ) libft/libft.a
+	$(CC) $(CFLAGS) $(LIBFT) $^ -o $@
 
 $(NAME) : checker push_swap
 

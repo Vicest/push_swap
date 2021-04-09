@@ -6,14 +6,14 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 15:13:24 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/30 14:47:59 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/04/08 14:04:28 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-void	ft_swap(int *a, int *b)
-{
+static void	ft_swap(int *a, int *b)
+{ //TODO To lib
 	int	swp;
 
 	swp = *a;
