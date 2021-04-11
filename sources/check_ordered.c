@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_ordered.c                                       :+:      :+:    :+:   */
+/*   check_ordered.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:48:17 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/04/09 16:05:06 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/04/11 17:15:45 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-int	is_ordered(t_psh_swp game)
+int	check_ordered(t_psh_swp game)
 {
 	if (game.top_a != game.max_i)
 		return (0);

@@ -6,15 +6,16 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/04/08 14:23:48 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/04/11 18:18:46 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CHK_FILES :=
+CHK_FILES += check_opts.c
 CHK_FILES += load_stack.c
 CHK_FILES += exit_handler.c
 CHK_FILES += print_sts.c
-CHK_FILES += is_ordered.c
+CHK_FILES += check_ordered.c
 CHK_FILES += gnl.c
 CHK_FILES += exit_handler.c
 CHK_FILES += rotate.c
