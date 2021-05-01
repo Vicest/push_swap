@@ -6,11 +6,12 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 19:32:53 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/04/11 17:46:54 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/05/01 20:34:18 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CHECKER_H
+# define CHECKER_H
 # include <unistd.h>
 # include "common.h"
 

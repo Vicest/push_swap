@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push.c                                             :+:      :+:    :+:   */
+/*   exit_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/29 12:42:15 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/03/30 12:40:22 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/03/28 21:31:58 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/04/09 16:08:12 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "checker.h"
 
-void	push(t_psh_swp *game, char *spec)
+void	exit_handler(char status, void *stc_mem)
 {
-	if (spec[0] == 'b' && spec[1] == '\0')
-	{
-		if (game->top_a - game->stack >= 0)
-			game->top_a--;
-	}
-	else if (spec[0] == 'a' && spec[1] == '\0')
-	{
-		if (game->max_i - game->top_a > 0)
-			game->top_a++;
-	}
-	else
-		exit_handler(ERROR, game->stack);
+	if (stc_mem)
+		free(stc_mem);
+	if (status == ERROR)
+		write(2, "Error\n", 6);
+	//system("leaks checker");
+	exit(status);
 }
