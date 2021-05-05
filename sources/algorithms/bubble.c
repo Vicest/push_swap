@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 20:38:47 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/05 13:28:25 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/05/05 14:56:38 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,4 @@ void	bubble_sort(t_list **inst, t_psh_swp *game)
 		else
 			i--;
 	}
-	ft_lstadd_front(inst, ft_lstnew(ft_strdup("\0")));
 }
