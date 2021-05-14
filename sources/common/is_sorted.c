@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   is_sorted.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/21 19:32:53 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/13 12:51:51 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/03/30 12:48:17 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/05/14 18:54:23 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# define CHECKER_H
-# include <unistd.h>
-# include "common.h"
+#include "checker.h"
 
-# define VERBOSE 1
-
-void	print_sts(t_stacks game);
-int		check_opts(int argc, const char **args, char *sts);
-#endif
+int	is_sorted(t_stacks game)
+{
+	if (game.top_a != game.max_i)
+		return (0);
+	while (game.stack < game.top_a)
+	{
+		if (game.stack[0] > game.stack[1])
+			return (0);
+		game.stack++;
+	}
+	return (1);
+}

@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 20:38:47 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/05 14:56:38 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/05/13 12:49:05 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_swap(int *a, int *b)
 	*b = swp;
 }
 
-void	bubble_sort(t_list **inst, t_psh_swp *game)
+void	bubble_sort(t_list **inst, t_stacks *game)
 {
 	int		elems;
 	size_t	i;

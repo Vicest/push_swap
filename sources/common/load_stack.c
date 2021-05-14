@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:44:34 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/04/11 19:03:15 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/05/13 12:52:26 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static size_t	cnt_words(const char *nums)
 	return (len);
 }
 
-void	load_stack(t_psh_swp *game, const char *nums)
+void	load_stack(t_stacks *game, const char *nums)
 {
 	char	*end;
 	size_t	len;

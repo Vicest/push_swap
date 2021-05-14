@@ -6,29 +6,32 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/05/05 14:03:08 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/05/14 18:39:52 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-VPATH := sources/common:sources/checker:sources/push_swap:sources/algorithms
+VPATH := sources/common:sources/push_swap:sources/algorithms
+
+NAME := push_swap
 
 CMN_FILES :=
 CMN_FILES += load_stack.c
 CMN_FILES += exit_handler.c
+CMN_FILES += is_sorted.c
+CMN_FILES += rotate.c
+CMN_FILES += swap.c
+CMN_FILES += push.c
 
-CHK_FILES :=
-CHK_FILES += check_opts.c
-CHK_FILES += print_sts.c
-CHK_FILES += check_ordered.c
-CHK_FILES += gnl.c
-CHK_FILES += exit_handler.c
-CHK_FILES += rotate.c
-CHK_FILES += swap.c
-CHK_FILES += push.c
-CHK_FILES += checker.c
+#CHK_FILES :=
+#CHK_FILES += check_opts.c
+#CHK_FILES += print_sts.c
+#HK_FILES += gnl.c
+#CHK_FILES += exit_handler.c
+#CHK_FILES += checker.c
 
 PSH_FILES :=
 PSH_FILES += bubble.c
+PSH_FILES += backtrace.c
 PSH_FILES += push_swap.c
 
 SRC_DIR := sources
@@ -41,7 +44,7 @@ OBJ_DIR := objects
 #PHS_SRC :=  $(addprefix $(SRC_DIR)/push_swap, $(PSH_FILES))
 
 CMN_OBJ := $(addprefix $(OBJ_DIR)/, $(patsubst %.c, %.o, $(CMN_FILES)))
-CHK_OBJ := $(addprefix $(OBJ_DIR)/, $(patsubst %.c, %.o, $(CHK_FILES)))
+#CHK_OBJ := $(addprefix $(OBJ_DIR)/, $(patsubst %.c, %.o, $(CHK_FILES)))
 PSH_OBJ := $(addprefix $(OBJ_DIR)/, $(patsubst %.c, %.o, $(PSH_FILES)))
 
 SRC_BNS_FILES :=
@@ -56,29 +59,26 @@ CC := gcc
 CFLAGS := -Wall -Werror -Wextra -I$(INC_DIR) -g
 LN_FLAGS := -Llibft -lft
 
-.PHONY: all re clean fclean game norm
-all : checker push_swap
+.PHONY: all re clean fclean norm
+all : $(NAME)
 
-$(LIBFT) :
-	@make -C libft
-	@ln -vfs libft/libft.h $(INC_DIR)/
-
-
-checker : $(CMN_OBJ) $(CHK_OBJ) $(LIBFT)
-	@tput setaf 2
-	@echo "Checker:"
-	@tput setaf 8
-	$(CC) $(CFLAGS) $(LN_FLAGS) $^ -o $@
-	@tput sgr0
-
-push_swap : $(CMN_OBJ) $(PSH_OBJ) $(LIBFT)
+$(NAME) : $(CMN_OBJ) $(PSH_OBJ) $(LIBFT)
 	@tput setaf 2
 	@echo "Push_Swap:"
 	@tput setaf 8
 	$(CC) $(CFLAGS) $(LN_FLAGS) $^ -o $@
 	@tput sgr0
 
-$(NAME) : checker push_swap
+$(LIBFT) :
+	@make -C libft
+	@ln -vfs libft/libft.h $(INC_DIR)/
+
+#checker : $(CMN_OBJ) $(CHK_OBJ) $(LIBFT)
+#	@tput setaf 2
+#	@echo "Checker:"
+#	@tput setaf 8
+#	$(CC) $(CFLAGS) $(LN_FLAGS) $^ -o $@
+#	@tput sgr0
 
 $(OBJ_DIR)/%.o :%.c
 	@mkdir -vp $(OBJ_DIR)
