@@ -6,7 +6,7 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/05/14 18:39:52 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/05/14 20:39:09 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ CMN_FILES += push.c
 
 PSH_FILES :=
 PSH_FILES += bubble.c
+PSH_FILES += try_ra.c
+PSH_FILES += try_sa.c
 PSH_FILES += backtrace.c
 PSH_FILES += push_swap.c
 

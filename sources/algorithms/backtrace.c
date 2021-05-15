@@ -6,52 +6,40 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 12:13:25 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/14 19:02:13 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/05/15 19:57:46 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "common.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <limits.h>
+#include "push_swap.h"
 
-void	recursive_backtrace(t_list **inst, t_stacks *game, int steps, char *f)
+char	*backtrace(t_stacks *game)
 {
-	//int i = 0;
-	//printf("steps %d\n", steps);
-	/*
-	while (game->stack + i <= game->max_i)
-		printf("|%i", game->stack[i++]);
-		*/
-	//printf("|\nsteps %d\n", steps);
-	if (steps > 1000)
-		return ;
-	if (is_sorted(*game))
+	t_backtrace_info	bi;
+	
+	while (*(char *)(bi.instr1->data) <= LAST_INSTR)
+		//TODO if possible just use a char * var
 	{
-		(*f) = 1;
-		return ;
-	}
-
-	if (*f == 0)
-	{
-		rot(game, "a");
-		ft_lstadd_front(inst, ft_lstnew(ft_strdup("ra\n")));
-		recursive_backtrace(&((*inst)->next), game, steps + 1, f);
-		if (*f == 0)
+		if (is_ordered(*game))
 		{
-			ft_lstclear(inst, free);
-			rot(game, "ra");
+			bi.max_steps = bi.step;
+			bi.sortest = copy_instr(bi.last_instr);
+			delete_last_instr(&bi, game);
+			inc_prev();
+			continue ;
 		}
-	}
-	//------
-	if (*f == 0)
-	{
-		swap(game, "a");
-		ft_lstadd_front(inst, ft_lstnew(ft_strdup("sa\n")));
-		recursive_backtrace(&((*inst)->next), game, steps + 1, f);
-		if (*f == 0)
+		if (bi.step == bi.max_steps || *(char *)(bi.current_instr->data) > LAST_INSTR)
+			//TODO if possible use char* var
 		{
-			ft_lstclear(inst, free);
-			swap(game, "a");
+			delete_last_instr(&bi, game);
+			inc_prev();
+			continue ;
 		}
+		ft_lst_addfront(&(bi.last_instr), NOP);
+		bi.step++;
+		inc_prev();
 	}
+	return (bi->shortest);
 }
