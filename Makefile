@@ -6,11 +6,13 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/05/14 20:39:09 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/05/16 22:22:46 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 VPATH := sources/common:sources/push_swap:sources/algorithms
+
+MAKEFILES += " -j $(shell sysctl -n hw.ncpu)"
 
 NAME := push_swap
 
@@ -103,4 +105,6 @@ libclean :
 
 fclean : clean
 
-re : fclean all
+re :
+	@make fclean
+	@make all

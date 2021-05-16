@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 12:13:25 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/15 19:57:46 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/05/16 16:00:21 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,24 @@ char	*backtrace(t_stacks *game)
 			bi.max_steps = bi.step;
 			bi.sortest = copy_instr(bi.last_instr);
 			delete_last_instr(&bi, game);
-			inc_prev();
+			inc_instr(game, bi.last_instr);
 			continue ;
 		}
-		if (bi.step == bi.max_steps || *(char *)(bi.current_instr->data) > LAST_INSTR)
+		if(bi.step == bi.max_steps)
+		{
+			inc_instr(game, bi.last_instr);
+			continue ;
+		}
+		if (*(char *)(bi.current_instr->data) > LAST_INSTR)
 			//TODO if possible use char* var
 		{
 			delete_last_instr(&bi, game);
-			inc_prev();
+			inc_instr(game, bi.last_instr);
 			continue ;
 		}
 		ft_lst_addfront(&(bi.last_instr), NOP);
 		bi.step++;
-		inc_prev();
+		inc_instr(game, bi.last_instr);
 	}
 	return (bi->shortest);
 }
