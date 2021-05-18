@@ -6,20 +6,11 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 20:38:47 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/13 12:49:05 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/05/18 12:33:52 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-static void	ft_swap(int *a, int *b)
-{
-	int	swp;
-
-	swp = *a;
-	*a = *b;
-	*b = swp;
-}
+#include "common.h"
 
 void	bubble_sort(t_list **inst, t_stacks *game)
 {

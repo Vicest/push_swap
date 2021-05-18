@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 20:33:08 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/15 19:57:46 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/05/18 13:43:44 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 # include "../libft/libft.h"
 # include "common.h"
 
-# define NOP	-1
-# define SA		0
-# define RA		1
-# define RRA	2
-# define LAST_INSTR 2
 
 typedef struct	s_backtrace_info
 {
@@ -30,8 +25,9 @@ typedef struct	s_backtrace_info
 	unsigned long		step;
 }				t_backtrace_info;
 
-char	*backtrace(t_stacks *game);
+char	*start_backtrace(t_stacks *game);
+int		is_sorted(t_stacks game);
+void	inc_instr(t_stacks *game, t_list *last_instr);
+void	delete_last_instr(t_backtrace_info *bi, t_stacks *game);
 void	bubble_sort(t_list **inst, t_stacks *game);
-void	try_ra(t_list **inst, t_stacks *game, int steps, char *f);
-void	try_sa(t_list **inst, t_stacks *game, int steps, char *f, char *prev);
 #endif

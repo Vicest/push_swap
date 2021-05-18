@@ -6,20 +6,11 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 15:13:24 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/13 12:56:56 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/05/18 12:22:21 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
-
-static void	ft_swap(int *a, int *b)
-{ //TODO To lib
-	int	swp;
-
-	swp = *a;
-	*a = *b;
-	*b = swp;
-}
+#include "common.h"
 
 void	swap(t_stacks *game, char *spec)
 {

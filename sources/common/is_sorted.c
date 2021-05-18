@@ -6,11 +6,11 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:48:17 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/14 18:54:23 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/05/18 12:43:37 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "common.h"
 
 int	is_sorted(t_stacks game)
 {

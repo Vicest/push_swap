@@ -6,7 +6,7 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/05/16 22:22:46 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/05/18 12:47:45 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ MAKEFILES += " -j $(shell sysctl -n hw.ncpu)"
 NAME := push_swap
 
 CMN_FILES :=
+CMN_FILES += do_instr.c
 CMN_FILES += load_stack.c
 CMN_FILES += exit_handler.c
 CMN_FILES += is_sorted.c
@@ -32,10 +33,10 @@ CMN_FILES += push.c
 #CHK_FILES += checker.c
 
 PSH_FILES :=
-PSH_FILES += bubble.c
-PSH_FILES += try_ra.c
-PSH_FILES += try_sa.c
+#PSH_FILES += bubble.c
 PSH_FILES += backtrace.c
+PSH_FILES += delete_last_instr.c
+PSH_FILES += next_instr.c
 PSH_FILES += push_swap.c
 
 SRC_DIR := sources

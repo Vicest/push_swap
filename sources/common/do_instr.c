@@ -6,19 +6,28 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 19:23:49 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/16 22:15:39 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/05/18 12:38:30 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int	do_instr(t_stacks *game, char instr_id)
+void	do_instr(t_stacks *game, char instr_id)
 {
 	if (instr_id == SA)
-		 return (swap(game, SA));
+		 swap(game, "a");
 	else if (instr_id == RA)
-		 return (rotate(game, RA));
+		 rot(game, "a");
 	else if (instr_id == RRA)
-		 return (rrotate(game, RRA));
-	return (-1);
+		 rot(game, "ra");
+}
+
+void	undo_instr(t_stacks *game, char instr_id)
+{
+	if (instr_id == SA)
+		 swap(game, "a");
+	else if (instr_id == RA)
+		rot(game, "ra");
+	else if (instr_id == RRA)
+		rot(game, "a");
 }
