@@ -6,7 +6,7 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/05/18 12:47:45 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/05/21 17:36:03 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ CMN_FILES += push.c
 PSH_FILES :=
 #PSH_FILES += bubble.c
 PSH_FILES += backtrace.c
+PSH_FILES += copy_instructions.c
 PSH_FILES += delete_last_instr.c
 PSH_FILES += next_instr.c
 PSH_FILES += push_swap.c
@@ -61,7 +62,7 @@ SRC_BNS :=	$(addprefix $(SRC_DIR)/, $(SRC_BNS_FILES))
 OBJ_BNS :=	$(addprefix $(OBJ_DIR)/, $(OBJ_BNS_FILES))
 
 CC := gcc
-CFLAGS := -Wall -Werror -Wextra -I$(INC_DIR) -g
+CFLAGS := -Wall -Werror -Wextra -I$(INC_DIR) -g #-fsanitize=address
 LN_FLAGS := -Llibft -lft
 
 .PHONY: all re clean fclean norm
