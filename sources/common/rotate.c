@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/29 13:17:46 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/13 13:08:31 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/05/30 20:37:33 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/05/30 20:37:42 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,26 +38,18 @@ static void	rrotate(int *start, int *end)
 	start[0] = aux;
 }
 
-void	rot(t_stacks *game, char *spec)
+void	rot(t_stacks *game, char which)
 {
-	if (!ft_strcmp(spec, "a"))
+	if (which & A)
 		rotate(game->stack, game->top_a);
-	else if (!ft_strcmp(spec, "b"))
+	if (which & B)
 		rrotate(game->top_a + 1, game->max_i);
-	else if (!ft_strcmp(spec, "r"))
-	{
-		rotate(game->stack, game->top_a);
-		rrotate(game->top_a + 1, game->max_i);
-	}
-	else if (!ft_strcmp(spec, "ra"))
+}
+
+void	rrot(t_stacks *game, char which)
+{
+	if (which & A)
 		rrotate(game->stack, game->top_a);
-	else if (!ft_strcmp(spec, "rb"))
+	if (which & B)
 		rotate(game->top_a + 1, game->max_i);
-	else if (!ft_strcmp(spec, "rr"))
-	{
-		rrotate(game->stack, game->top_a);
-		rotate(game->top_a + 1, game->max_i);
-	}
-	else
-		exit_handler(ERROR, game->stack);
 }

@@ -3,27 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/29 12:42:15 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/13 12:51:23 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/05/30 20:56:05 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/05/30 20:56:08 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "checker.h"
 
-void	push(t_stacks *game, char *spec)
+void	push(t_stacks *game, char which)
 {
-	if (spec[0] == 'b' && spec[1] == '\0')
-	{
-		if (game->top_a - game->stack >= 0)
+	if (which & A && game->top_a >= game->stack)
 			game->top_a--;
-	}
-	else if (spec[0] == 'a' && spec[1] == '\0')
-	{
-		if (game->max_i - game->top_a > 0)
+	else if (which & B && game->max_i > game->top_a)
 			game->top_a++;
-	}
-	else
-		exit_handler(ERROR, game->stack);
 }

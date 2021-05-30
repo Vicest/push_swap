@@ -6,11 +6,11 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/05/21 17:36:03 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/05/30 19:38:09 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-VPATH := sources/common:sources/push_swap:sources/algorithms
+VPATH := sources/common:sources/push_swap
 
 MAKEFILES += " -j $(shell sysctl -n hw.ncpu)"
 

@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   generator.c                                        :+:      :+:    :+:   */
+/*   is_sorted.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
+/*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/11 21:38:24 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/04/11 21:52:09 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/03/30 12:48:17 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/05/13 12:48:09 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "common.h"
 
-char	*randomize_num(void)
+int	is_sorted(t_stacks *game)
 {
-	int	rnd_num;
-	int	rnd_sign;
-
-	rnd_sign = rand() % 2;
-	rnd_num = 
-
-int	main(int argc, char *args)
-{
-	int		n_request;
-	int		n_done;
-	char	*
+	if (game->top_a != game->max_i)
+		return (0);
+	while (game->stack < game->top_a)
+	{
+		if (game->stack[0] > game->stack[1])
+			return (0);
+		game->stack++;
+	}
+	return (1);
+}

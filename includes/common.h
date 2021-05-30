@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/06 12:49:43 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/18 14:03:03 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/05/30 20:38:00 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/05/30 20:50:04 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 # include "../libft/libft.h"
 # define SUCCS 0
 # define ERROR 1
+
+# define A 0b01
+# define B 0b10
+
+//TODO: Check if it can be simplified
 # define NOP	0
 # define SA		1
 # define RA		2
@@ -29,11 +34,17 @@ typedef struct s_stacks
 }			t_stacks;
 
 int		is_sorted(t_stacks game);
-void	do_instr(t_stacks *game, char instr_id);
-void	undo_instr(t_stacks *game, char instr_id);
 int		get_next_line(char **line);
 void	exit_handler(char status, void *stc_mem);
 void	load_stack(t_stacks *game, const char *nums);
-void	swap(t_stacks *game, char *spec);
-void	rot(t_stacks *game, char *spec);
+
+/*
+**	Instructions
+*/
+void	do_instr(t_stacks *game, char instr_id);
+void	undo_instr(t_stacks *game, char instr_id);
+void	swap(t_stacks *game, char which);
+void	push(t_stacks *game, char which);
+void	rrot(t_stacks *game, char which);
+void	rot(t_stacks *game, char which);
 #endif
