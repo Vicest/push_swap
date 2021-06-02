@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:38:00 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/30 20:50:04 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/06/02 13:36:31 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 # define SA		1
 # define RA		2
 # define RRA	3
+# define SB		4
+# define RB		5
+# define RRB	6
+# define SS		7
+# define RR		8
+# define RRR	9
+# define PA		10
+# define PB		11
 # define LAST_INSTR 3
 
 typedef struct s_stacks
