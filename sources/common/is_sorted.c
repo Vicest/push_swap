@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:48:17 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/18 12:43:37 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/06/03 13:18:05 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ int	is_sorted(t_stacks game)
 {
 	if (game.top_a != game.max_i)
 		return (0);
-	while (game.stack < game.top_a)
-	{
-		if (game.stack[0] > game.stack[1])
-			return (0);
+	while (game.stack < game.top_a && game.stack[0] > game.stack[1])
 		game.stack++;
-	}
-	return (1);
+	return (game.stack == game.top_a);
 }
