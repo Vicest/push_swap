@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:38:00 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/06/02 13:36:31 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/06/03 14:30:07 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	load_stack(t_stacks *game, const char *nums);
 */
 void	do_instr(t_stacks *game, char instr_id);
 void	undo_instr(t_stacks *game, char instr_id);
+void	log_do(t_stacks *game, t_list **instr, char instr_id);
 void	swap(t_stacks *game, char which);
 void	push(t_stacks *game, char which);
 void	rrot(t_stacks *game, char which);

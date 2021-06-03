@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 16:30:37 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/06/03 13:09:18 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/06/03 15:48:56 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,37 +44,37 @@ static int	insertion_distance(t_stacks *game, int sorted_top_val)
 **	It checks the distance to said position to choose the shortest path
 */
 
-static void	next_insertion(t_stacks *game, int sorted_top_val)
+static void	next_insertion(t_stacks *game, t_list **instr, int sorted_top_val)
 {
 	int	d = insertion_distance(game, sorted_top_val);
 	int	i = 0;
 
 	if (d == 1)
-		swap(game, A);
+		log_do(game, instr, SA);
 	else if (d == -1)
 	{
-		rrot(game, A);
-		swap(game, A);
-		rot(game, A);
-		rot(game, A);
+		log_do(game, instr, RRA);
+		log_do(game, instr, SA);
+		log_do(game, instr, RA);
+		log_do(game, instr, RA);
 	}
 	else if (d > 1)
 	{
-		push(game, B);
+		log_do(game, instr, PB);
 		while (i++ < d)
-			rot(game, A);
-		push(game, A);
+			log_do(game, instr, RA);
+		log_do(game, instr, PA);
 		while (i-- > 0)
-			rrot(game, A);
+			log_do(game, instr, RRA);
 	}
 	else
 	{
-		push(game, B);
+		log_do(game, instr, PB);
 		while (i-- < d)
-			rrot(game, A);
-		push(game, A);
+			log_do(game, instr, RRA);
+		log_do(game, instr, PA);
 		while (i++ <= d)
-			rot(game, A);
+			log_do(game, instr, RA);
 	}
 }
 
@@ -90,7 +90,8 @@ static void	next_insertion(t_stacks *game, int sorted_top_val)
 
 char	*insertion_sort(t_stacks game)
 {
-	//t_list	instr;
+	char	*instr_str;
+	t_list	*instr;
 	size_t	stack_imax;
 	size_t	sorted_top_i;
 
@@ -98,25 +99,26 @@ char	*insertion_sort(t_stacks game)
 	/*
 	**	Starting setup.
 	*/
+	/*
+	**	Always just swap&rot when possible, should save steps.
+	*/
+	instr = NULL;
 	if (*(game.top_a) > *(game.top_a - 1))
 	{
-		swap(&game, A);
-		rot(&game, A);
+		log_do(&game, &instr, SA);
+		log_do(&game, &instr, RA);
 	}
-	rot(&game, A);
+	log_do(&game, &instr, RA);
 	sorted_top_i = 0;
 	while (game.stack[sorted_top_i] > game.stack[sorted_top_i + 1])
 		sorted_top_i++;
 	stack_imax = (game.max_i - game.stack);
-	/*
-	**	Loop proper.
-	*/
 	while (sorted_top_i < stack_imax)
 	{
 		if (*(game.top_a) > *(game.stack))
-			rot(&game, A);
+			log_do(&game, &instr, RA);
 		else
-			next_insertion(&game, game.stack[sorted_top_i]);
+			next_insertion(&game, &instr, game.stack[sorted_top_i]);
 		sorted_top_i++;
 		while (game.stack[sorted_top_i] > game.stack[sorted_top_i + 1] &&
 				(sorted_top_i < stack_imax))
@@ -126,6 +128,7 @@ char	*insertion_sort(t_stacks game)
 		write(1, "OK", 2);
 	else
 		write(1, "KO", 2);
-
-	return ("here be instructions");
+	instr_str = copy_instructions(instr);
+	ft_lstclear(&instr, NULL);
+	return (instr_str);
 }

@@ -6,17 +6,18 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/06/02 13:38:52 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/06/03 14:38:18 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-VPATH := sources/common:sources/push_swap
+VPATH := sources/common:sources/pushswap
 
 MAKEFILES += " -j $(shell sysctl -n hw.ncpu)"
 
 NAME := push_swap
 
 CMN_FILES :=
+CMN_FILES += log_do.c
 CMN_FILES += do_instr.c
 CMN_FILES += load_stack.c
 CMN_FILES += exit_handler.c
