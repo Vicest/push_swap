@@ -6,12 +6,13 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 16:30:37 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/06/03 15:48:56 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/05 17:14:34 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "push_swap.h"
+#include <stdio.h>
 
 /*
 ** The value to insert is at the top of the stack.
@@ -48,6 +49,7 @@ static void	next_insertion(t_stacks *game, t_list **instr, int sorted_top_val)
 {
 	int	d = insertion_distance(game, sorted_top_val);
 	int	i = 0;
+	printf("HELLO: distance|%d|\n", d);
 
 	if (d == 1)
 		log_do(game, instr, SA);
@@ -57,24 +59,31 @@ static void	next_insertion(t_stacks *game, t_list **instr, int sorted_top_val)
 		log_do(game, instr, SA);
 		log_do(game, instr, RA);
 		log_do(game, instr, RA);
+		print_status(game);
 	}
 	else if (d > 1)
 	{
 		log_do(game, instr, PB);
+		print_status(game);
 		while (i++ < d)
 			log_do(game, instr, RA);
 		log_do(game, instr, PA);
+		print_status(game);
 		while (i-- > 0)
 			log_do(game, instr, RRA);
+		print_status(game);
 	}
 	else
 	{
 		log_do(game, instr, PB);
-		while (i-- < d)
+		print_status(game);
+		while (d < i--)
 			log_do(game, instr, RRA);
 		log_do(game, instr, PA);
-		while (i++ <= d)
+		print_status(game);
+		while (i++ < 0)
 			log_do(game, instr, RA);
+		print_status(game);
 	}
 }
 
@@ -102,6 +111,8 @@ char	*insertion_sort(t_stacks game)
 	/*
 	**	Always just swap&rot when possible, should save steps.
 	*/
+	printf("START\n");
+	print_status(&game);
 	instr = NULL;
 	if (*(game.top_a) > *(game.top_a - 1))
 	{
@@ -113,6 +124,7 @@ char	*insertion_sort(t_stacks game)
 	while (game.stack[sorted_top_i] > game.stack[sorted_top_i + 1])
 		sorted_top_i++;
 	stack_imax = (game.max_i - game.stack);
+	printf("stackimax %lu\n", stack_imax);
 	while (sorted_top_i < stack_imax)
 	{
 		if (*(game.top_a) > *(game.stack))

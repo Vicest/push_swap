@@ -6,7 +6,7 @@
 #    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/06/03 14:38:18 by vicmarti         ###   ########.fr        #
+#    Updated: 2021/07/05 15:17:21 by vicmarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ CMN_FILES += do_instr.c
 CMN_FILES += load_stack.c
 CMN_FILES += exit_handler.c
 CMN_FILES += is_sorted.c
+CMN_FILES += print_status.c
 CMN_FILES += rotate.c
 CMN_FILES += swap.c
 CMN_FILES += push.c

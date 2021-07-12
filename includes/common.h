@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:38:00 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/06/03 14:30:07 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/12 21:32:32 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define RRR	9
 # define PA		10
 # define PB		11
-# define LAST_INSTR 3
+# define LAST_INSTR 12
 
 typedef struct s_stacks
 {
@@ -44,7 +44,7 @@ typedef struct s_stacks
 int		is_sorted(t_stacks game);
 int		get_next_line(char **line);
 void	exit_handler(char status, void *stc_mem);
-void	load_stack(t_stacks *game, const char *nums);
+void	load_stack(t_stacks *game, int argn, const char **argv);
 
 /*
 **	Instructions

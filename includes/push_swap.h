@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 20:33:08 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/06/02 13:38:17 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/05 15:21:58 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int		is_sorted(t_stacks game);
 void	inc_instr(t_stacks *game, t_list *last_instr);
 void	delete_last_instr(t_backtrace_info *bi, t_stacks *game);
 char	*insertion_sort(t_stacks game);
+void	print_status(t_stacks *game);
 void	bubble_sort(t_list **inst, t_stacks *game);
 #endif

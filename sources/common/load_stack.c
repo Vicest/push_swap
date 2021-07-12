@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:44:34 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/13 12:52:26 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/12 21:33:13 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,57 @@ static size_t	cnt_words(const char *nums)
 	return (len);
 }
 
-void	load_stack(t_stacks *game, const char *nums)
+static char	*join_args(int argn, const char **argv)
 {
-	char	*end;
-	size_t	len;
+	char	*joined;
+	char	*prev_str;
+	int		i;
 
-	len = cnt_words(nums);
-	game->stack = malloc(len * sizeof(int));
+	joined = ft_strdup(argv[0]);
+	if (!joined)
+		exit_handler(ERROR, NULL);
+	i = 1;
+	while (i < argn)
+	{
+		prev_str = joined;
+		joined = ft_strjoin(joined, " ");
+		if (!joined)
+			exit_handler(ERROR, NULL);
+		free(prev_str);
+		prev_str = joined;
+		joined = ft_strjoin(joined, argv[i]);
+		if (!joined)
+			exit_handler(ERROR, NULL);
+		free(prev_str);
+		i++;
+	}
+	return (joined);
+}
+
+void	load_stack(t_stacks *game, int argn, const char **argv)
+{
+	char	*concatenated_args;
+	char	*number_end;
+	size_t	number_count;
+	size_t	i;
+
+	concatenated_args = join_args(argn, argv);
+	number_count = cnt_words(concatenated_args);
+	game->stack = malloc(number_count * sizeof(int));
 	if (!game->stack)
 		exit_handler(ERROR, NULL);
-	game->max_i = game->stack + len - 1;
+	game->max_i = game->stack + number_count - 1;
 	game->top_a = game->max_i;
-	while (len-- > 0)
+	i = -1;
+	while (++i < number_count)
 	{
-		game->stack[len] = ft_strtol(nums, &end);
-		nums = end;
-		if (errno == ERANGE && (game->stack[len] & INT_MAX) == INT_MAX)
+		game->stack[i] = ft_strtol(concatenated_args, &number_end);
+		concatenated_args = number_end;
+		if (errno == ERANGE && (game->stack[i] & INT_MAX) == INT_MAX)
 				exit_handler(ERROR, game->stack);
 	}
-	if (*end || has_dup(game->stack, game->max_i))
+	if (*number_end || has_dup(game->stack, game->max_i))
 		exit_handler(ERROR, game->stack);
+	free(concatenated_args);
 }
 
