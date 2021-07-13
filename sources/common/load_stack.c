@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:44:34 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/12 21:33:13 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/13 19:56:45 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static char	*join_args(int argn, const char **argv)
 void	load_stack(t_stacks *game, int argn, const char **argv)
 {
 	char	*concatenated_args;
+	char	*next_number;
 	char	*number_end;
 	size_t	number_count;
 	size_t	i;
@@ -95,15 +96,15 @@ void	load_stack(t_stacks *game, int argn, const char **argv)
 	game->max_i = game->stack + number_count - 1;
 	game->top_a = game->max_i;
 	i = -1;
+	next_number = concatenated_args;
 	while (++i < number_count)
 	{
-		game->stack[i] = ft_strtol(concatenated_args, &number_end);
-		concatenated_args = number_end;
+		game->stack[i] = ft_strtol(next_number, &number_end);
+		next_number = number_end;
 		if (errno == ERANGE && (game->stack[i] & INT_MAX) == INT_MAX)
-				exit_handler(ERROR, game->stack);
+			exit_handler(ERROR, game->stack);
 	}
 	if (*number_end || has_dup(game->stack, game->max_i))
 		exit_handler(ERROR, game->stack);
 	free(concatenated_args);
 }
-
