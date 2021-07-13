@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 12:13:25 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/21 20:04:02 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/13 20:04:23 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*backtrace(t_stacks *game, t_backtrace_info bi)
 			}
 			delete_last_instr(&bi, game);
 			if (!bi.last_instr)
-				break;
+				break ;
 			inc_instr(game, bi.last_instr);
 			continue ;
 		}
@@ -40,7 +40,7 @@ static char	*backtrace(t_stacks *game, t_backtrace_info bi)
 			inc_instr(game, bi.last_instr);
 			continue ;
 		}
-		if(bi.step == bi.max_steps)
+		if (bi.step == bi.max_steps)
 		{
 			inc_instr(game, bi.last_instr);
 			continue ;

@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 16:30:37 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/05 17:14:34 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/13 20:10:22 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ static int	insertion_distance(t_stacks *game, int sorted_top_val)
 
 static void	next_insertion(t_stacks *game, t_list **instr, int sorted_top_val)
 {
-	int	d = insertion_distance(game, sorted_top_val);
-	int	i = 0;
-	printf("HELLO: distance|%d|\n", d);
+	const int	d = insertion_distance(game, sorted_top_val);
+	int			i;
 
+	printf("HELLO: distance|%d|\n", d);
+	i = 0;
 	if (d == 1)
 		log_do(game, instr, SA);
 	else if (d == -1)
@@ -132,8 +133,8 @@ char	*insertion_sort(t_stacks game)
 		else
 			next_insertion(&game, &instr, game.stack[sorted_top_i]);
 		sorted_top_i++;
-		while (game.stack[sorted_top_i] > game.stack[sorted_top_i + 1] &&
-				(sorted_top_i < stack_imax))
+		while (game.stack[sorted_top_i] > game.stack[sorted_top_i + 1]
+			&& (sorted_top_i < stack_imax))
 			sorted_top_i++;
 	}
 	if (is_sorted(game))
