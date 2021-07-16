@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 16:30:37 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/13 20:10:22 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/16 22:41:00 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,41 +50,41 @@ static void	next_insertion(t_stacks *game, t_list **instr, int sorted_top_val)
 	const int	d = insertion_distance(game, sorted_top_val);
 	int			i;
 
-	printf("HELLO: distance|%d|\n", d);
 	i = 0;
 	if (d == 1)
 		log_do(game, instr, SA);
 	else if (d == -1)
 	{
-		log_do(game, instr, RRA);
-		log_do(game, instr, SA);
-		log_do(game, instr, RA);
-		log_do(game, instr, RA);
-		print_status(game);
+		log_and_do_sequence(game, instr (const char []){RRA, SA, RA, RA, 0});
+		//log_do(game, instr, RRA);
+		//log_do(game, instr, SA);
+		//log_do(game, instr, RA);
+		//log_do(game, instr, RA);
+		//print_status(game);
 	}
 	else if (d > 1)
 	{
 		log_do(game, instr, PB);
-		print_status(game);
+		//print_status(game);
 		while (i++ < d)
 			log_do(game, instr, RA);
 		log_do(game, instr, PA);
-		print_status(game);
+		//print_status(game);
 		while (i-- > 0)
 			log_do(game, instr, RRA);
-		print_status(game);
+		//print_status(game);
 	}
 	else
 	{
 		log_do(game, instr, PB);
-		print_status(game);
+		//print_status(game);
 		while (d < i--)
 			log_do(game, instr, RRA);
 		log_do(game, instr, PA);
-		print_status(game);
+		//print_status(game);
 		while (i++ < 0)
 			log_do(game, instr, RA);
-		print_status(game);
+		//print_status(game);
 	}
 }
 

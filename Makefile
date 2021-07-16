@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/02/16 23:35:47 by vicmarti          #+#    #+#              #
-#    Updated: 2021/07/05 15:17:21 by vicmarti         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 VPATH := sources/common:sources/pushswap
 
 MAKEFILES += " -j $(shell sysctl -n hw.ncpu)"
@@ -17,8 +5,9 @@ MAKEFILES += " -j $(shell sysctl -n hw.ncpu)"
 NAME := push_swap
 
 CMN_FILES :=
-CMN_FILES += log_do.c
 CMN_FILES += do_instr.c
+CMN_FILES += log_and_do.c
+CMN_FILES += log_and_do_sequence.c
 CMN_FILES += load_stack.c
 CMN_FILES += exit_handler.c
 CMN_FILES += is_sorted.c
@@ -35,8 +24,7 @@ CMN_FILES += push.c
 #CHK_FILES += checker.c
 
 PSH_FILES :=
-#PSH_FILES += bubble.c
-PSH_FILES += backtrace.c
+#PSH_FILES += backtrace.c
 PSH_FILES += insertion_sort.c
 PSH_FILES += copy_instructions.c
 PSH_FILES += delete_last_instr.c
@@ -65,7 +53,7 @@ SRC_BNS :=	$(addprefix $(SRC_DIR)/, $(SRC_BNS_FILES))
 OBJ_BNS :=	$(addprefix $(OBJ_DIR)/, $(OBJ_BNS_FILES))
 
 CC := gcc
-CFLAGS := -Wall -Werror -Wextra -I$(INC_DIR) -g #-fsanitize=address
+CFLAGS := -Wall -Werror -Wextra -I$(INC_DIR) -g -fsanitize=address
 LN_FLAGS := -Llibft -lft
 
 .PHONY: all re clean fclean norm

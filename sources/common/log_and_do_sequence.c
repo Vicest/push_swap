@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   log_do.c                                           :+:      :+:    :+:   */
+/*   log_and_do_sequence.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/03 14:22:29 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/05 17:30:44 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/07/16 22:03:40 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/07/16 22:40:22 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
-#include <stdio.h>
 
-void	log_do(t_stacks *game, t_list **instr, char instr_id)
+void	log_and_do_sequence(t_stacks *game, t_list **instr, const char seq[])
 {
-	size_t	aux;
+	size_t	i;
 
-	printf("%d\n", instr_id);
-	aux = instr_id;
-	do_instr(game, instr_id);
-	ft_lstadd_front(instr, ft_lstnew(((void *)aux)));
+	i = -1;
+	while (seq[++i])
+		log_and_do_instr(game, instr, seq[i]);
 }

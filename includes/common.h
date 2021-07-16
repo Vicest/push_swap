@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:38:00 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/12 21:32:32 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/16 22:44:44 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,18 @@
 # define B 0b10
 
 //TODO: Check if it can be simplified
-# define NOP	0
-# define SA		1
-# define RA		2
-# define RRA	3
-# define SB		4
-# define RB		5
-# define RRB	6
-# define SS		7
-# define RR		8
-# define RRR	9
-# define PA		10
-# define PB		11
+# define NOP	'\x00'
+# define SA		'\x01'
+# define RA		'\x02'
+# define RRA	'\x03'
+# define SB		'\x04'
+# define RB		'\x05'
+# define RRB	'\x06'
+# define SS		'\x07'
+# define RR		'\x08'
+# define RRR	'\x09'
+# define PA		'\x0a'
+# define PB		'\x0b'
 # define LAST_INSTR 12
 
 typedef struct s_stacks
@@ -41,19 +41,22 @@ typedef struct s_stacks
 	int		*stack;
 }			t_stacks;
 
-int		is_sorted(t_stacks game);
-int		get_next_line(char **line);
 void	exit_handler(char status, void *stc_mem);
+
 void	load_stack(t_stacks *game, int argn, const char **argv);
+int		is_sorted(t_stacks game);
 
 /*
 **	Instructions
 */
-void	do_instr(t_stacks *game, char instr_id);
-void	undo_instr(t_stacks *game, char instr_id);
-void	log_do(t_stacks *game, t_list **instr, char instr_id);
 void	swap(t_stacks *game, char which);
 void	push(t_stacks *game, char which);
 void	rrot(t_stacks *game, char which);
 void	rot(t_stacks *game, char which);
+
+void	do_instr(t_stacks *game, char instr_id);
+void	undo_instr(t_stacks *game, char instr_id);
+void	log_and_do_instr(t_stacks *game, t_list **instr, char instr_id);
+void	log_and_do_n(t_stacks *game, t_list **instr, char instr_id, size_t n);
+void	log_and_do_sequence(t_stacks *game, t_list **instr, const char list[]);
 #endif
