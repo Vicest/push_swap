@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:39:30 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/12 21:34:49 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/17 22:11:46 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	main(int argc, const char **args)
 	if (argc == 1)
 		exit_handler(SUCCS, game.stack);
 	load_stack(&game, argc - 1, &(args[1]));
+	if (is_sorted(game))
+		exit_handler(SUCCS, game.stack);
 	iset = insertion_sort(game);
 	print_instr(iset);
 	free(iset);

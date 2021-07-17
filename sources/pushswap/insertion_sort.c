@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 16:30:37 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/17 19:37:00 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/17 22:31:19 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,36 +48,24 @@ static int	insertion_distance(t_stacks *game, int sorted_top_val)
 static void	next_insertion(t_stacks *game, t_list **instr, int sorted_top_val)
 {
 	const int	d = insertion_distance(game, sorted_top_val);
-	int			i;
 
-	i = 0;
 	if (d == 1)
 		log_and_do_instr(game, instr, SA);
 	else if (d == -1)
 		log_and_do_sequence(game, instr, (const char []){RRA, SA, RA, RA, 0});
-	else if (d > 1)
+	else if (d > 1) //Go through the unsorted stack
 	{
 		log_and_do_instr(game, instr, PB);
-		//print_status(game);
-		while (i++ < d)
-			log_and_do_instr(game, instr, RA);
+		log_and_do_n(game, instr, RA, d);
 		log_and_do_instr(game, instr, PA);
-		//print_status(game);
-		while (i-- > 0)
-			log_and_do_instr(game, instr, RRA);
-		//print_status(game);
+		log_and_do_n(game, instr, RRA, d);
 	}
-	else
+	else //Go through the sorted stack
 	{
 		log_and_do_instr(game, instr, PB);
-		//print_status(game);
-		while (d < i--)
-			log_and_do_instr(game, instr, RRA);
+		log_and_do_n(game, instr, RRA, d);
 		log_and_do_instr(game, instr, PA);
-		//print_status(game);
-		while (i++ < 0)
-			log_and_do_instr(game, instr, RA);
-		//print_status(game);
+		log_and_do_n(game, instr, RA, d);
 	}
 }
 
@@ -105,7 +93,7 @@ char	*insertion_sort(t_stacks game)
 	**	Always just swap&rot when possible, should save steps.
 	*/
 	instr = NULL;
-	if (*(game.top_a) > *(game.top_a - 1))
+	if (game.top_a[0] > game.top_a[-1])
 		log_and_do_sequence(&game, &instr, (const char []){SA, RA, 0});
 	log_and_do_instr(&game, &instr, RA);
 	sorted_top_i = 0;

@@ -7,6 +7,7 @@ NAME := push_swap
 CMN_FILES :=
 CMN_FILES += do_instr.c
 CMN_FILES += log_and_do.c
+CMN_FILES += log_and_do_n.c
 CMN_FILES += log_and_do_sequence.c
 CMN_FILES += load_stack.c
 CMN_FILES += exit_handler.c

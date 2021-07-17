@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:44:34 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/13 19:56:45 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/17 22:03:19 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,21 @@ void	load_stack(t_stacks *game, int argn, const char **argv)
 	char	*concatenated_args;
 	char	*next_number;
 	char	*number_end;
-	size_t	number_count;
-	size_t	i;
+	size_t	numbers;
 
 	concatenated_args = join_args(argn, argv);
-	number_count = cnt_words(concatenated_args);
-	game->stack = malloc(number_count * sizeof(int));
+	numbers = cnt_words(concatenated_args);
+	game->stack = malloc(numbers * sizeof(int));
 	if (!game->stack)
 		exit_handler(ERROR, NULL);
-	game->max_i = game->stack + number_count - 1;
+	game->max_i = game->stack + numbers - 1;
 	game->top_a = game->max_i;
-	i = -1;
 	next_number = concatenated_args;
-	while (++i < number_count)
+	while (numbers--)
 	{
-		game->stack[i] = ft_strtol(next_number, &number_end);
+		game->stack[numbers] = ft_strtol(next_number, &number_end);
 		next_number = number_end;
-		if (errno == ERANGE && (game->stack[i] & INT_MAX) == INT_MAX)
+		if (errno == ERANGE && (game->stack[numbers] & INT_MAX) == INT_MAX)
 			exit_handler(ERROR, game->stack);
 	}
 	if (*number_end || has_dup(game->stack, game->max_i))
