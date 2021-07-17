@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 16:30:37 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/16 22:41:00 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/17 19:37:00 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,38 +52,31 @@ static void	next_insertion(t_stacks *game, t_list **instr, int sorted_top_val)
 
 	i = 0;
 	if (d == 1)
-		log_do(game, instr, SA);
+		log_and_do_instr(game, instr, SA);
 	else if (d == -1)
-	{
-		log_and_do_sequence(game, instr (const char []){RRA, SA, RA, RA, 0});
-		//log_do(game, instr, RRA);
-		//log_do(game, instr, SA);
-		//log_do(game, instr, RA);
-		//log_do(game, instr, RA);
-		//print_status(game);
-	}
+		log_and_do_sequence(game, instr, (const char []){RRA, SA, RA, RA, 0});
 	else if (d > 1)
 	{
-		log_do(game, instr, PB);
+		log_and_do_instr(game, instr, PB);
 		//print_status(game);
 		while (i++ < d)
-			log_do(game, instr, RA);
-		log_do(game, instr, PA);
+			log_and_do_instr(game, instr, RA);
+		log_and_do_instr(game, instr, PA);
 		//print_status(game);
 		while (i-- > 0)
-			log_do(game, instr, RRA);
+			log_and_do_instr(game, instr, RRA);
 		//print_status(game);
 	}
 	else
 	{
-		log_do(game, instr, PB);
+		log_and_do_instr(game, instr, PB);
 		//print_status(game);
 		while (d < i--)
-			log_do(game, instr, RRA);
-		log_do(game, instr, PA);
+			log_and_do_instr(game, instr, RRA);
+		log_and_do_instr(game, instr, PA);
 		//print_status(game);
 		while (i++ < 0)
-			log_do(game, instr, RA);
+			log_and_do_instr(game, instr, RA);
 		//print_status(game);
 	}
 }
@@ -105,31 +98,24 @@ char	*insertion_sort(t_stacks game)
 	size_t	stack_imax;
 	size_t	sorted_top_i;
 
-	//TODO LOG&DO instructions
 	/*
 	**	Starting setup.
 	*/
 	/*
 	**	Always just swap&rot when possible, should save steps.
 	*/
-	printf("START\n");
-	print_status(&game);
 	instr = NULL;
 	if (*(game.top_a) > *(game.top_a - 1))
-	{
-		log_do(&game, &instr, SA);
-		log_do(&game, &instr, RA);
-	}
-	log_do(&game, &instr, RA);
+		log_and_do_sequence(&game, &instr, (const char []){SA, RA, 0});
+	log_and_do_instr(&game, &instr, RA);
 	sorted_top_i = 0;
 	while (game.stack[sorted_top_i] > game.stack[sorted_top_i + 1])
 		sorted_top_i++;
 	stack_imax = (game.max_i - game.stack);
-	printf("stackimax %lu\n", stack_imax);
 	while (sorted_top_i < stack_imax)
 	{
 		if (*(game.top_a) > *(game.stack))
-			log_do(&game, &instr, RA);
+			log_and_do_instr(&game, &instr, RA);
 		else
 			next_insertion(&game, &instr, game.stack[sorted_top_i]);
 		sorted_top_i++;
@@ -138,9 +124,9 @@ char	*insertion_sort(t_stacks game)
 			sorted_top_i++;
 	}
 	if (is_sorted(game))
-		write(1, "OK", 2);
+		write(1, "OK\n", 3);
 	else
-		write(1, "KO", 2);
+		write(1, "KO\n", 3);
 	instr_str = copy_instructions(instr);
 	ft_lstclear(&instr, NULL);
 	return (instr_str);

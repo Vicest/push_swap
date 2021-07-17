@@ -53,7 +53,7 @@ SRC_BNS :=	$(addprefix $(SRC_DIR)/, $(SRC_BNS_FILES))
 OBJ_BNS :=	$(addprefix $(OBJ_DIR)/, $(OBJ_BNS_FILES))
 
 CC := gcc
-CFLAGS := -Wall -Werror -Wextra -I$(INC_DIR) -g -fsanitize=address
+CFLAGS := -Wall -Werror -Wextra -I$(INC_DIR) -g #-fsanitize=address
 LN_FLAGS := -Llibft -lft
 
 .PHONY: all re clean fclean norm
