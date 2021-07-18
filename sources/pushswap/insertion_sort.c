@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 16:30:37 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/17 22:31:19 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/18 21:48:22 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,17 @@
 static int	insertion_distance(t_stacks *game, int sorted_top_val)
 {
 	int	i;
-	int	a_size;
+	int	stacka_size;
 
 	i = 0;
-	while (*(game->top_a) < game->stack[i] && sorted_top_val != game->stack[i])
+	while (game->top_a[0] < game->stack[i] && sorted_top_val != game->stack[i])
 		i++;
-	a_size = game->top_a - game->stack;
-	if (a_size - i < i)
-		return (a_size - i);
+	i++;
+	stacka_size = game->top_a - game->stack;
+	print_status(game);
+	printf("A:%d|I:%d\n", stacka_size, sorted_top_val);
+	if (stacka_size - i < i)
+		return (stacka_size - i);
 	return (-i);
 }
 
@@ -81,35 +84,28 @@ static void	next_insertion(t_stacks *game, t_list **instr, int sorted_top_val)
 
 char	*insertion_sort(t_stacks game)
 {
+	const size_t	element_number = game.max_i - game.stack;
+	size_t	sorted_top_i;
 	char	*instr_str;
 	t_list	*instr;
-	size_t	stack_imax;
-	size_t	sorted_top_i;
 
 	/*
 	**	Starting setup.
 	*/
-	/*
-	**	Always just swap&rot when possible, should save steps.
-	*/
 	instr = NULL;
+	print_status(&game);
 	if (game.top_a[0] > game.top_a[-1])
-		log_and_do_sequence(&game, &instr, (const char []){SA, RA, 0});
-	log_and_do_instr(&game, &instr, RA);
+		log_and_do_instr(&game, &instr, SA);
+	while (game.top_a[0] > game.stack[0])
+		log_and_do_instr(&game, &instr, RA);
+	print_status(&game);
 	sorted_top_i = 0;
-	while (game.stack[sorted_top_i] > game.stack[sorted_top_i + 1])
-		sorted_top_i++;
-	stack_imax = (game.max_i - game.stack);
-	while (sorted_top_i < stack_imax)
+	while (sorted_top_i < element_number)
 	{
-		if (*(game.top_a) > *(game.stack))
-			log_and_do_instr(&game, &instr, RA);
+		if (game.stack[sorted_top_i] > game.stack[sorted_top_i + 1])
+			sorted_top_i++;
 		else
 			next_insertion(&game, &instr, game.stack[sorted_top_i]);
-		sorted_top_i++;
-		while (game.stack[sorted_top_i] > game.stack[sorted_top_i + 1]
-			&& (sorted_top_i < stack_imax))
-			sorted_top_i++;
 	}
 	if (is_sorted(game))
 		write(1, "OK\n", 3);
