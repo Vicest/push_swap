@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:39:30 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/18 22:04:22 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/20 14:25:52 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, const char **args)
 {
 	t_stacks	game;
 	char		*iset;
-	char		*iset2;
+	//char		*iset2;
 
 	ft_bzero(&game, sizeof(t_stacks));
 	if (argc == 1)
@@ -56,11 +56,11 @@ int	main(int argc, const char **args)
 	if (is_sorted(game))
 		exit_handler(SUCCS, game.stack);
 	iset = insertion_sort(game);
-	iset2 = start_backtrace(&game);
+	//iset2 = start_backtrace(&game);
 	print_instr(iset);
-	print_instr(iset2);
+	//print_instr(iset2);
 	free(iset);
-	free(iset2);
+	//free(iset2);
 	system("leaks -q push_swap");
 	exit_handler(SUCCS, game.stack);
 }

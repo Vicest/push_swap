@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 16:30:37 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/18 21:48:22 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/20 15:21:45 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,28 @@ static int	insertion_distance(t_stacks *game, int sorted_top_val)
 	i = 0;
 	while (game->top_a[0] < game->stack[i] && sorted_top_val != game->stack[i])
 		i++;
-	i++;
-	stacka_size = game->top_a - game->stack;
+	stacka_size = game->top_a - game->stack + 1;
 	print_status(game);
-	printf("A:%d|I:%d\n", stacka_size, sorted_top_val);
-	if (stacka_size - i < i)
+	printf("StackA:%d|TOP:%d|I:%d\n", stacka_size, sorted_top_val, i);
+	if (stacka_size / 2 < i)
 		return (stacka_size - i);
 	return (-i);
+}
+
+void	pb_rrotate_pa_rotate(t_stack *game, t_list **instr, int d)
+{
+	log_and_do_instr(game, instr, PB);
+	log_and_do_n(game, instr, RRA, d);
+	log_and_do_instr(game, instr, PA);
+	log_and_do_n(game, instr, RA, d);
+}
+
+void	pb_rotate_pa_rrotate(t_stack *game, t_list **instr, int d)
+{
+	log_and_do_instr(game, instr, PB);
+	log_and_do_n(game, instr, RA, d);
+	log_and_do_instr(game, instr, PA);
+	log_and_do_n(game, instr, RRA, d);
 }
 
 /*
@@ -52,24 +67,14 @@ static void	next_insertion(t_stacks *game, t_list **instr, int sorted_top_val)
 {
 	const int	d = insertion_distance(game, sorted_top_val);
 
-	if (d == 1)
+	if (d == 0)
+		log_and_do_instr(game, instr, RA);
+	else if (d == 1)
 		log_and_do_instr(game, instr, SA);
-	else if (d == -1)
-		log_and_do_sequence(game, instr, (const char []){RRA, SA, RA, RA, 0});
-	else if (d > 1) //Go through the unsorted stack
-	{
-		log_and_do_instr(game, instr, PB);
-		log_and_do_n(game, instr, RA, d);
-		log_and_do_instr(game, instr, PA);
-		log_and_do_n(game, instr, RRA, d);
-	}
-	else //Go through the sorted stack
-	{
-		log_and_do_instr(game, instr, PB);
-		log_and_do_n(game, instr, RRA, d);
-		log_and_do_instr(game, instr, PA);
-		log_and_do_n(game, instr, RA, d);
-	}
+	else if (d > 1)
+		pb_rotate_pa_rrotate(game, instr, d);
+	else
+		pb_rrotate_pa_rotate(game, instr, -d);
 }
 
 /*
@@ -107,6 +112,7 @@ char	*insertion_sort(t_stacks game)
 		else
 			next_insertion(&game, &instr, game.stack[sorted_top_i]);
 	}
+	print_status(&game);
 	if (is_sorted(game))
 		write(1, "OK\n", 3);
 	else
