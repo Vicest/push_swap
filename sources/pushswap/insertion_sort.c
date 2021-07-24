@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 16:30:37 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/23 19:52:46 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/24 22:13:42 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,10 @@ static void	next_insertion(t_stacks *game, t_list **instr, int sorted_top_val)
 char	*insertion_sort(t_stacks game)
 {
 	const size_t	element_number = game.max_i - game.stack;
-	size_t	sorted_top_i;
-	char	*instr_str;
-	t_list	*instr;
+	size_t			sorted_top_i;
+	char			*instr_str;
+	t_list			*instr;
 
-	/*
-	**	Starting setup.
-	*/
 	instr = NULL;
 	print_status(&game);
 	if (game.top_a[0] > game.top_a[-1])

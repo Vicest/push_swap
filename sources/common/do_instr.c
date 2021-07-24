@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 19:23:49 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/16 22:04:16 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/24 22:14:16 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,4 @@ void	do_instr(t_stacks *game, char instr_id)
 		push(game, A);
 	else if (instr_id == PB)
 		push(game, B);
-}
-
-void	undo_instr(t_stacks *game, char instr_id)
-{
-	if (instr_id == SA)
-		 swap(game, A);
-	else if (instr_id == RA)
-		rrot(game, A);
-	else if (instr_id == RRA)
-		rot(game, A);
 }
