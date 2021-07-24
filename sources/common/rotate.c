@@ -6,11 +6,11 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:37:33 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/30 20:37:42 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/24 21:35:24 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "common.h"
 
 static void	rotate(int *start, int *end)
 {

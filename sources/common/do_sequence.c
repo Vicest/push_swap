@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker.h                                          :+:      :+:    :+:   */
+/*   do_sequence.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/21 19:32:53 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/05/13 12:51:51 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/07/23 21:06:06 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/07/23 21:16:17 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CHECKER_H
-# define CHECKER_H
-# include <unistd.h>
-# include "common.h"
+#include "common.h"
+void	do_sequence(t_stacks *game, const char seq[])
+{
+	size_t	i;
 
-# define VERBOSE 1
-
-void	print_sts(t_stacks game);
-int		check_opts(int argc, const char **args, char *sts);
-#endif
+	i = -1;
+	while(seq[++i])
+		do_instr(game, seq[i]);
+}

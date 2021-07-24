@@ -6,11 +6,11 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:56:05 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/13 20:01:43 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/24 21:35:50 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "checker.h"
+#include "common.h"
 
 void	push(t_stacks *game, char which)
 {

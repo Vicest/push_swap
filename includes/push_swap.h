@@ -6,15 +6,15 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 20:33:08 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/05 15:21:58 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/24 21:51:18 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include <stdlib.h>
-# include "../libft/libft.h"
 # include "common.h"
+
+# define BRUTEFORCE_DEPTH 6
 
 
 typedef struct	s_backtrace_info
@@ -26,7 +26,7 @@ typedef struct	s_backtrace_info
 	unsigned long		step;
 }				t_backtrace_info;
 
-char	*start_backtrace(t_stacks *game);
+char	*bruteforce(t_stacks *game);
 char	*copy_instructions(t_list *last_instr);
 int		is_sorted(t_stacks game);
 void	inc_instr(t_stacks *game, t_list *last_instr);

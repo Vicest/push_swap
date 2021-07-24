@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:39:30 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/20 14:25:52 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/24 22:01:48 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,30 @@ static void	print_instr(char *str)
 	}
 }
 
+static void	run_algorithms(t_stacks *game)
+{
+	char	*shortest_set;
+	char	*new_set;
+
+	shortest_set = insertion_sort(*game);
+	reset(game);
+	new_set = NULL;
+	if (game->max_i + 1 - game->stack <= 7)
+		new_set = bruteforce(game);
+	if (new_set && ft_strlen(new_set) < ft_strlen(shortest_set))
+	{
+		free(shortest_set);
+		shortest_set = new_set;
+	}
+	print_instr(shortest_set);
+
+	//printf("Insertion\n");
+	//print_instr(new_set);
+}
+
 int	main(int argc, const char **args)
 {
 	t_stacks	game;
-	char		*iset;
-	//char		*iset2;
 
 	ft_bzero(&game, sizeof(t_stacks));
 	if (argc == 1)
@@ -55,12 +74,7 @@ int	main(int argc, const char **args)
 	load_stack(&game, argc - 1, &(args[1]));
 	if (is_sorted(game))
 		exit_handler(SUCCS, game.stack);
-	iset = insertion_sort(game);
-	//iset2 = start_backtrace(&game);
-	print_instr(iset);
-	//print_instr(iset2);
-	free(iset);
-	//free(iset2);
-	system("leaks -q push_swap");
+	run_algorithms(&game);
+	//system("leaks -q push_swap");
 	exit_handler(SUCCS, game.stack);
 }

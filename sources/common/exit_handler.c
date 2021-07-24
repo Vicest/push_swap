@@ -6,12 +6,11 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 21:31:58 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/13 20:01:08 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/24 21:32:28 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "checker.h"
+#include "common.h"
 
 void	exit_handler(char status, void *stc_mem)
 {

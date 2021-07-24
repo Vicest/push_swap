@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   insertion_sort.c                                   :+:      :+:    :+:   */
+/*   size2_insertion_sort.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/23 16:30:37 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/23 19:52:46 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/07/20 17:39:49 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/07/20 18:38:35 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,47 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-/*
-** The value to insert is at the top of the stack.
-** Distance is the number of elements the stack needs to rotate through to let
-** the top be the element that goes right below the inserted value.
-** Positive distance means going through the unsorted sub-stack.
-** Negative distance means traversing the sorted sub-stack.
-** The stack may rotate either way.
-** The values below top and before sorted_top_val are unsorted, we ignore them.
-** The values below sorted_top_val are already sorted.
-*/
-
 static int	insertion_distance(t_stacks *game, int sorted_top_val)
 {
-	int	i;
-	int	stacka_size;
+	const int	i = distance_to_ordered_pos(game, game->top_a[0]);
+	const int	stacka_size = game->top_a - game->stack + 1;
 
-	i = 0;
-	do_instr(game, PB);
-	while (game->top_a[1] < game->stack[i] && sorted_top_val != game->stack[i])
-		i++;
-	stacka_size = game->top_a - game->stack + 1;
-	print_status(game);
-	do_instr(game, PA);
-	print_status(game);
-	printf("StackA:%d|TOP:%d|I:%d\n", stacka_size, sorted_top_val, i);
 	if (stacka_size / 2 < i)
 		return (stacka_size - i);
 	return (-i);
 }
 
-static void	pb_rrotate_pa_rotate(t_stacks *game, t_list **instr, int d)
+static int	distance_to_ordered_pos(t_stack *game, int val)
 {
+	int	i;
+
+	i = 0;
+	while (val < game->stack[i] && game->stack + i < game->top_a)
+		i++;
+	return (i);
+}
+
+static void	pb_rrotate_pa_rotate(t_stack *game, t_list **instr, int d)
+{
+	int	tot_rotations
+	log_and_do_instr(game, instr, PB);
 	log_and_do_instr(game, instr, PB);
 	log_and_do_n(game, instr, RRA, d);
 	log_and_do_instr(game, instr, PA);
 	log_and_do_n(game, instr, RA, d);
 }
 
-static void	pb_rotate_pa_rrotate(t_stacks *game, t_list **instr, int d)
+static void	pb_rotate_pa_rrotate(t_stack *game, t_list **instr, int d)
 {
 	log_and_do_instr(game, instr, PB);
 	log_and_do_n(game, instr, RA, d);
 	log_and_do_instr(game, instr, PA);
 	log_and_do_n(game, instr, RRA, d);
 }
-
-/*
-**	Performs an essential step in the insertion sort algorithm.
-**	Place the top of the unsorted stack into the sorted stack.
-**	It checks the distance to said position to choose the shortest path
-*/
 
 static void	next_insertion(t_stacks *game, t_list **instr, int sorted_top_val)
 {
-	const int	d = insertion_distance(game, sorted_top_val);
+	const int	 = insertion_distance(game, sorted_top_val);
 
 	if (d == 0)
 		log_and_do_instr(game, instr, RA);
@@ -80,17 +66,7 @@ static void	next_insertion(t_stacks *game, t_list **instr, int sorted_top_val)
 		pb_rrotate_pa_rotate(game, instr, -d);
 }
 
-/*
-** For the insertion sort we handle two sub-stacks, sorted and unsorted.
-** The sorted stack is kept track of from the top.
-** The sorted stack will progressively grow through insertions.
-** The value to insert starts at the top of the stack.
-** The general-case of an insertion is saving said value into the temp stack.
-** Rotate the stack to find the insertion place.
-** Restore ("reverse rotate") the stack to let the top be the next elem.
-*/
-
-char	*insertion_sort(t_stacks game)
+char	*size_2insertion_sort(t_stacks game)
 {
 	const size_t	element_number = game.max_i - game.stack;
 	size_t	sorted_top_i;
@@ -104,6 +80,8 @@ char	*insertion_sort(t_stacks game)
 	print_status(&game);
 	if (game.top_a[0] > game.top_a[-1])
 		log_and_do_instr(&game, &instr, SA);
+	while (game.top_a[0] > game.stack[0])
+		log_and_do_instr(&game, &instr, RA);
 	print_status(&game);
 	sorted_top_i = 0;
 	while (sorted_top_i < element_number)

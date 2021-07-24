@@ -6,6 +6,7 @@ NAME := push_swap
 
 CMN_FILES :=
 CMN_FILES += do_instr.c
+CMN_FILES += do_sequence.c
 CMN_FILES += log_and_do.c
 CMN_FILES += log_and_do_n.c
 CMN_FILES += log_and_do_sequence.c
@@ -25,11 +26,11 @@ CMN_FILES += push.c
 #CHK_FILES += checker.c
 
 PSH_FILES :=
-#PSH_FILES += backtrace.c
+PSH_FILES += reset.c
+PSH_FILES += brute.c
 PSH_FILES += insertion_sort.c
 PSH_FILES += copy_instructions.c
-PSH_FILES += delete_last_instr.c
-PSH_FILES += next_instr.c
+##PSH_FILES += next_instr.c
 PSH_FILES += push_swap.c
 
 SRC_DIR := sources
@@ -90,7 +91,7 @@ norm :
 clean :
 	@echo "Cleaning:"
 	@tput setaf 3
-	@rm -rfv $(OBJ_DIR) checker push_swap
+	@rm -rfv $(OBJ_DIR) push_swap
 	@tput sgr0
 
 libclean :
