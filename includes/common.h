@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:38:00 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/24 21:34:30 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/25 18:31:29 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "../libft/libft.h"
+
 # define SUCCS 0
 # define ERROR 1
 
 # define A 0b01
 # define B 0b10
 
-//TODO: Check if it can be simplified
 # define NOP	'\x00'
 # define SA		'\x01'
 # define RA		'\x02'
@@ -47,8 +47,12 @@ typedef struct s_stacks
 
 void	exit_handler(char status, void *stc_mem);
 
+void	reset(t_stacks *game);
 void	load_stack(t_stacks *game, int argn, const char **argv);
+size_t	stack_size(t_stacks *game, char which);
 int		is_sorted(t_stacks game);
+int		range_is_sorted(t_stacks *game, size_t base, size_t top);
+
 
 /*
 **	Instructions
@@ -58,7 +62,6 @@ void	push(t_stacks *game, char which);
 void	rrot(t_stacks *game, char which);
 void	rot(t_stacks *game, char which);
 
-void	reset(t_stacks *game);
 void	do_instr(t_stacks *game, char instr_id);
 void	do_sequence(t_stacks *game, const char seq[]);
 //void	undo_instr(t_stacks *game, char instr_id);

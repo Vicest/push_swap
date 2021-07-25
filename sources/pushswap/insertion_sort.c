@@ -6,13 +6,12 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 16:30:37 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/24 22:13:42 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/25 14:21:04 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "push_swap.h"
-#include <stdio.h>
 
 /*
 ** The value to insert is at the top of the stack.
@@ -35,10 +34,7 @@ static int	insertion_distance(t_stacks *game, int sorted_top_val)
 	while (game->top_a[1] < game->stack[i] && sorted_top_val != game->stack[i])
 		i++;
 	stacka_size = game->top_a - game->stack + 1;
-	print_status(game);
 	do_instr(game, PA);
-	print_status(game);
-	printf("StackA:%d|TOP:%d|I:%d\n", stacka_size, sorted_top_val, i);
 	if (stacka_size / 2 < i)
 		return (stacka_size - i);
 	return (-i);
@@ -98,10 +94,8 @@ char	*insertion_sort(t_stacks game)
 	t_list			*instr;
 
 	instr = NULL;
-	print_status(&game);
 	if (game.top_a[0] > game.top_a[-1])
 		log_and_do_instr(&game, &instr, SA);
-	print_status(&game);
 	sorted_top_i = 0;
 	while (sorted_top_i < element_number)
 	{
@@ -110,11 +104,6 @@ char	*insertion_sort(t_stacks game)
 		else
 			next_insertion(&game, &instr, game.stack[sorted_top_i]);
 	}
-	print_status(&game);
-	if (is_sorted(game))
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
 	instr_str = copy_instructions(instr);
 	ft_lstclear(&instr, NULL);
 	return (instr_str);
