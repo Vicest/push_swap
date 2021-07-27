@@ -6,12 +6,15 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 20:50:07 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/25 22:00:22 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/27 21:49:33 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	push_back_into_a()
+#include "push_swap.h"
+
+static void	push_back_into_a(t_stacks *game, t_list **instr, int top)
 {
+	while (b_
 	while (pushed_from_low > 0)
 	{
 		if (stack_base[0] > b_next)
@@ -29,47 +32,45 @@ void	push_back_into_a()
 	}
 }
 
-void	align_into_a()
+//TODO Optimize keeping track of the rotations needed in B to make
+static void	push_from_a(t_stacks *game, t_list **instr, int pivot, int base)
 {
-	while(rotated > 0)
-		log_and_do(RRA);
-		rotated--;
+	bool	base_is_checked;
+
+	while (game->top_a[0] != pivot)
+	{
+		if (game->top_a[0] > pivot)
+			log_and_do(game, instr, PB);
+		else
+			log_and_do(game, instr, RA);
+	}
+	base_is_checked = false;
+	while (!base_is_checked)
+	{
+		if (game->top_a[0] == base)
+			base_is_checked = true;
+		if (game->top_a[0] < pivot)
+			log_and_do(game, instr, PB);
+		else
+			log_and_do(game, instr, RA);
+	}
 }
 
-void	quick()
+/*
+**	Quicksort adaptation, the substack section being ordered is at the top.
+*/
+
+void	quick(t_stacks *game, t_list **instr, int base_val, int top_val)
 {
-	if (is_sorted(substack))
-		;
-	else if (size(game) < COMFORTABLE_SORT_SIZE)
-		brute(substack); //Just a SA for a size 2 and the maybe optimize.
+	const int	pivot = game->stack[(substack_top - substack_base + 1) / 2];
+
+	if (get_position(top_val, game) - get_position(base_val, game) + 1 <= 3)
+		sort_3_and_rotate(game, instr, base_val, top_val);
 	else
 	{
-		pivot = game->substack[(size(substack) + 1) / 2];
-		i = substack_top;
-		pushed_from_low = 0;
-		while (i > substack_base)
-		{
-			if (i > middle_point && substack[i] > pivot)
-			{
-				log_and_do(PB);
-			}
-			else if (i < middle_point && substack[i] < pivot)
-			{
-				log_and_do(PB);
-				pushed_from_low++;
-			}
-			else
-			{
-				log_and_do(RA);
-				rotated++;
-			}
-			i++;
-		}
-		push_back_into_a(rotated, pushed_low);
-		upper_part = giv_part();
-		lower_part = gib_part();
-		quick(upper_part);
-		align_stack_to_lower();
-		quick(lower_part);
+		push_from_a(game, instr, pivot, base_val);
+		push_back_into_a(game, instr, top_val);
+		quick(game, instr, pivot, substack_top);
+		quick(game, substack_base, pivot - 1); //TODO Can pivot == 0?
 	}
 }
