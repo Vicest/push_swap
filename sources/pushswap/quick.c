@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 20:50:07 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/30 16:15:52 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/30 21:58:24 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "push_swap.h"
 
 static void	push_back_into_a(t_stacks *game, t_list **instr,
-		int top, unsigned int rotations)
+		unsigned int rotations)
 {
 	int	*a_base;
 	int	*b_top;
@@ -25,13 +25,13 @@ static void	push_back_into_a(t_stacks *game, t_list **instr,
 	{
 		if (*b_top > *a_base)
 		{
-			log_and_do(game, instr, PA);
+			log_and_do_instr(game, instr, PA);
 			b_top = peek_top(game, B);
 		}
 		else
 		{
 			rotations--;
-			log_and_do(gamee, instr, RRA);
+			log_and_do_instr(game, instr, RRA);
 			a_base = peek_base(game, A);
 		}
 	}
@@ -41,9 +41,9 @@ static void	push_back_into_a(t_stacks *game, t_list **instr,
 
 static void	push_to_base(t_stacks *game, t_list **instr)
 {
-	log_and_do(game, instr, PB);
+	log_and_do_instr(game, instr, PB);
 	if (stack_size(game, B) > 1)
-		log_and_do(game, instr, RB);
+		log_and_do_instr(game, instr, RB);
 }
 
 //TODO Can make it 1 loop right?
@@ -60,7 +60,7 @@ static unsigned int	push_from_a(t_stacks *game, t_list **instr,
 			push_to_base(game, instr);
 		else
 		{
-			log_and_do(game, instr, RA);
+			log_and_do_instr(game, instr, RA);
 			rotations++;
 		}
 	}
@@ -73,7 +73,7 @@ static unsigned int	push_from_a(t_stacks *game, t_list **instr,
 			push_to_base(game, instr);
 		else
 		{
-			log_and_do(game, instr, RA);
+			log_and_do_instr(game, instr, RA);
 			rotations++;
 		}
 	}
@@ -83,6 +83,9 @@ static unsigned int	push_from_a(t_stacks *game, t_list **instr,
 **	Quicksort adaptation, the substack section being ordered is at the top.
 */
 
+//TODO
+//NEED TO PROPERLY MANAGE THE DAMN BOT OF SUBSTACK
+//Count the substack size, and rotate after.
 void	quick(t_stacks *game, t_list **instr, int base_val, int top_val)
 {
 	const int		pivot = game->stack[(top_val - base_val + 1) / 2];
@@ -93,11 +96,11 @@ void	quick(t_stacks *game, t_list **instr, int base_val, int top_val)
 	else
 	{
 		rotations = push_from_a(game, instr, pivot, base_val);
-		push_back_into_a(game, instr, top_val, rotations);
+		push_back_into_a(game, instr, rotations);
 		if (pivot != top)
 			quick(game, instr, pivot, top_val);
 		rotate_over_pivot();
-		if (base_val != top
+		if (base_val 
 		quick(game, base_val, pivot - 1); //TODO Can pivot == 0?
 	}
 }

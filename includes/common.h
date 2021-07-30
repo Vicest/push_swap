@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:38:00 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/25 18:31:29 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/30 21:56:44 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,14 @@ void	push(t_stacks *game, char which);
 void	rrot(t_stacks *game, char which);
 void	rot(t_stacks *game, char which);
 
+int		*get_position(int value, t_stacks *game);
+int		*peek_base(t_stacks *game, char which);
+int		*peek_top(t_stacks *game, char which);
+
+
+
 void	do_instr(t_stacks *game, char instr_id);
 void	do_sequence(t_stacks *game, const char seq[]);
-//void	undo_instr(t_stacks *game, char instr_id);
 void	log_and_do_instr(t_stacks *game, t_list **instr, char instr_id);
 void	log_and_do_n(t_stacks *game, t_list **instr, char instr_id, size_t n);
 void	log_and_do_sequence(t_stacks *game, t_list **instr, const char seq[]);

@@ -20,6 +20,7 @@ CMN_FILES += push.c
 
 PSH_FILES :=
 PSH_FILES += reset.c
+PSH_FILES += quick.c
 PSH_FILES += brute.c
 PSH_FILES += insertion_sort.c
 PSH_FILES += copy_instructions.c
