@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:38:00 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/30 21:56:44 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/01 20:54:15 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@
 # define B 0b10
 
 # define NOP	'\x00'
-# define SA		'\x01'
-# define RA		'\x02'
-# define RRA	'\x03'
-# define SB		'\x04'
-# define RB		'\x05'
-# define RRB	'\x06'
-# define SS		'\x07'
-# define RR		'\x08'
-# define RRR	'\x09'
-# define PA		'\x0a'
-# define PB		'\x0b'
+# define SA		'\x41'
+# define RA		'\x42'
+# define RRA	'\x43'
+# define SB		'\x44'
+# define RB		'\x45'
+# define RRB	'\x46'
+# define SS		'\x47'
+# define RR		'\x48'
+# define RRR	'\x49'
+# define PA		'\x4a'
+# define PB		'\x4b'
 # define FIRST_INSTR SA
 # define LAST_INSTR PB
 
@@ -62,11 +62,10 @@ void	push(t_stacks *game, char which);
 void	rrot(t_stacks *game, char which);
 void	rot(t_stacks *game, char which);
 
+size_t	index_of(int value, t_stacks *game);
 int		*get_position(int value, t_stacks *game);
 int		*peek_base(t_stacks *game, char which);
 int		*peek_top(t_stacks *game, char which);
-
-
 
 void	do_instr(t_stacks *game, char instr_id);
 void	do_sequence(t_stacks *game, const char seq[]);

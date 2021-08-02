@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   peek.c                                         :+:      :+:    :+:   */
+/*   peek.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:24:44 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/30 15:39:09 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/07/31 16:35:02 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	*peek_base(t_stacks *game, char which)
 	if (stack_size(game, which) == 0)
 		return (NULL);
 	if (which == A)
-		return (game->stacks);
+		return (game->stack);
 	else
 		return (game->max_i);
 }

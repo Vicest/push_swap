@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:39:30 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/24 22:01:48 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/02 17:36:38 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	print_instr(char *str)
 			ft_putstr_fd("pb\n", 1);
 	}
 }
-
+/*
 static void	run_algorithms(t_stacks *game)
 {
 	char	*shortest_set;
@@ -63,18 +63,26 @@ static void	run_algorithms(t_stacks *game)
 	//printf("Insertion\n");
 	//print_instr(new_set);
 }
+*/
 
 int	main(int argc, const char **args)
 {
 	t_stacks	game;
+	t_list		*instr;
+	char		*tmp;
 
+	instr = NULL;
 	ft_bzero(&game, sizeof(t_stacks));
 	if (argc == 1)
 		exit_handler(SUCCS, game.stack);
 	load_stack(&game, argc - 1, &(args[1]));
 	if (is_sorted(game))
 		exit_handler(SUCCS, game.stack);
-	run_algorithms(&game);
+	quick(&game, &instr, *(game.stack), *(game.top_a));
+	tmp = copy_instructions(instr);
+	optimizations(tmp);
+	print_instr(tmp);
+	//run_algorithms(&game);
 	//system("leaks -q push_swap");
 	exit_handler(SUCCS, game.stack);
 }

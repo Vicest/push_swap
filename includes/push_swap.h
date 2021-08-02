@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 20:33:08 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/24 21:51:18 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/02 15:54:06 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include "common.h"
 
 # define BRUTEFORCE_DEPTH 6
-
 
 typedef struct	s_backtrace_info
 {
@@ -26,12 +25,16 @@ typedef struct	s_backtrace_info
 	unsigned long		step;
 }				t_backtrace_info;
 
-char	*bruteforce(t_stacks *game);
+void	print_status(t_stacks *game);
 char	*copy_instructions(t_list *last_instr);
 int		is_sorted(t_stacks game);
 void	inc_instr(t_stacks *game, t_list *last_instr);
 void	delete_last_instr(t_backtrace_info *bi, t_stacks *game);
+void	sort_rotate_3(t_stacks *game, t_list **instr, size_t size);
+void	optimizations(char *instr);
+
 char	*insertion_sort(t_stacks game);
-void	print_status(t_stacks *game);
+char	*bruteforce(t_stacks *game);
+void	quick(t_stacks *game, t_list **instr, int base_val, int top_val);
 void	bubble_sort(t_list **inst, t_stacks *game);
 #endif

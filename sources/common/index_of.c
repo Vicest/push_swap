@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_position.c                                     :+:      :+:    :+:   */
+/*   index_of.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/27 20:08:17 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/31 16:19:55 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/07/31 21:43:49 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/08/01 17:38:23 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int	*get_position(int value, t_stacks *game)
+size_t	index_of(int value, t_stacks *game)
 {
-	int	*i;
+	size_t	index;
 
-	i = game->max_i;
-	while (i >= game->stack)
-	{
-		if (*i == value)
-			return (i);
-		i--;
-	}
-	return (0);
+	index = 0;
+	while (game->stack[index] != value)
+		index++;
+	return (index);
 }

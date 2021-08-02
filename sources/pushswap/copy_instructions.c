@@ -6,11 +6,12 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:00:26 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/13 20:02:15 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/02 15:56:00 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h> //TODO
 
 char	*copy_instructions(t_list *last_instr)
 {
