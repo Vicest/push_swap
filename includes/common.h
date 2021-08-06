@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:38:00 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/01 20:54:15 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/06 16:08:50 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ void	exit_handler(char status, void *stc_mem);
 
 void	reset(t_stacks *game);
 void	load_stack(t_stacks *game, int argn, const char **argv);
+void	preprocess_stack(t_stacks *game);
 size_t	stack_size(t_stacks *game, char which);
 int		is_sorted(t_stacks game);
 int		range_is_sorted(t_stacks *game, size_t base, size_t top);
-
+void	arr_sort(int *arr, size_t size);
 
 /*
 **	Instructions
