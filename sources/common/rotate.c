@@ -6,50 +6,30 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:37:33 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/24 21:35:24 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/07 18:21:11 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-static void	rotate(int *start, int *end)
+void	rot(t_stack *stack)
 {
-	int	aux;
+	const int	top = stack->val[stack->size - 1];
+	size_t		i;
 
-	aux = *end;
-	while (start < end)
-	{
-		end--;
-		end[1] = end[0];
-	}
-	end[0] = aux;
+	i = stack->size;
+	while (--i > 0)
+		stack->val[i] = stack->val[i - 1];
+	stack->val[0] = base;
 }
 
-static void	rrotate(int *start, int *end)
+void	rrot(t_stack *stack)
 {
-	int	aux;
+	const int	base = stack->val[0];
+	size_t		i;
 
-	aux = *start;
-	while (start < end)
-	{
-		start[0] = start[1];
-		start++;
-	}
-	start[0] = aux;
-}
-
-void	rot(t_stacks *game, char which)
-{
-	if (which & A)
-		rotate(game->stack, game->top_a);
-	if (which & B)
-		rrotate(game->top_a + 1, game->max_i);
-}
-
-void	rrot(t_stacks *game, char which)
-{
-	if (which & A)
-		rrotate(game->stack, game->top_a);
-	if (which & B)
-		rotate(game->top_a + 1, game->max_i);
+	i = 0;
+	while (++i < stack->size)
+		stack->val[i - 1] = stack->val[i];
+	stack->val[i - 1] = base;
 }

@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   has_value.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/22 15:13:24 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/07 17:48:11 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/08/07 18:55:11 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/08/07 19:01:35 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	swap(t_stack *stack)
+int	has_value(int n, t_stack *stack)
 {
-	const size_t	top = stack->size - 1;
+	size_t	i;
 
-	if (stack->size > 1)
-		ft_swap(stack->val[top],stack->val[top - 1]);
+	i = 0;
+	while (i < stack->size && stack->val[i] == n)
+		i++;
+	return (i < stack->size);
 }
+

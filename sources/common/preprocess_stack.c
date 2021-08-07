@@ -6,15 +6,15 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 16:17:25 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/06 16:28:28 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/07 21:49:21 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	preprocess_stack(t_stacks *game)
+void	preprocess_stack(t_ps *ps)
 {
-	const size_t	len = (game->max_i + 1 - game->stack);
+	const size_t	len = ps->size;
 	size_t			pos_in_stack;
 	size_t			i;
 	int				*stack_cpy;
@@ -24,13 +24,13 @@ void	preprocess_stack(t_stacks *game)
 		exit_handler(ERROR, game->stack);
 	i = -1;
 	while (++i < len)
-		stack_cpy[i] = game->copy[i];
+		stack_cpy[i] = ps->stack_a->val[i];
 	arr_sort(stack_cpy, len);
 	i = -1;
 	while (++i < len)
 	{
 		pos_in_stack = index_of(stack_cpy[i], game);
-		game->copy[pos_in_stack] = i;
+		ps->stack_a->val[pos_in_stack] = i;
 	}
 	free(stack_cpy);
 	reset(game);

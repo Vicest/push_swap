@@ -6,16 +6,18 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:56:05 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/24 21:35:50 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/07 17:54:24 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	push(t_stacks *game, char which)
+void	push(t_stack *dst, t_stack *src)
 {
-	if (which & A && game->max_i > game->top_a)
-		game->top_a++;
-	else if (which & B && game->top_a >= game->stack)
-		game->top_a--;
+	if (src->size > 0)
+	{
+		ft_swap(dst->val[dst->size], src->val[src->size - 1]);
+		dst->size++;
+		src->size--;
+	}
 }

@@ -34,7 +34,7 @@ PSH_FILES += insertion_sort.c
 PSH_FILES += copy_instructions.c
 PSH_FILES += push_swap.c
 
-INC_DIR := includes
+INC_DIR := headers§
 OBJ_DIR := objects
 
 CMN_OBJ := $(addprefix $(OBJ_DIR)/, $(patsubst %.c, %.o, $(CMN_FILES)))

@@ -6,34 +6,37 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 19:23:49 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/24 22:14:16 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/07 18:39:50 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	do_instr(t_stacks *game, char instr_id)
+void	do_instr(t_ps *ps, char instr_id)
 {
-	if (instr_id == SA)
-		swap(game, A);
-	else if (instr_id == SB)
-		swap(game, B);
-	else if (instr_id == SS)
-		swap(game, A | B);
-	else if (instr_id == RA)
-		rot(game, A);
-	else if (instr_id == RB)
-		rot(game, B);
-	else if (instr_id == RR)
-		rot(game, A | B);
-	else if (instr_id == RRA)
-		rrot(game, A);
-	else if (instr_id == RRB)
-		rrot(game, B);
-	else if (instr_id == RRR)
-		rrot(game, A | B);
+	if (instr_id == SS || instr_id == SA || instr_id == SB)
+	{
+		if (instr_id != SA)
+			swap(ps->stack_b);
+		if (instr_id != SB)
+			swap(ps->stack_a);
+	}
+	else if (instr_id == RR || instr_d == RA|| instr_id == RB)
+	{
+		if (instr_id != RA)
+			rot(ps->stack_b);
+		if (instr_id != RB)
+			rot(ps->stack_a);
+	}
+	else if (instr_id == RRR || instr_id == RRA || instr_id == RRB)
+	{
+		if (instr_id != RRA)
+			rrot(ps->stack_b);
+		if (instr_id != RRB)
+			rrot(ps->stack_a);
+	}
 	else if (instr_id == PA)
-		push(game, A);
+		push(ps->stack_a, ps->stack_b);
 	else if (instr_id == PB)
-		push(game, B);
+		push(ps->stack_b, ps->stack_a);
 }

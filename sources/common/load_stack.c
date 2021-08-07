@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:44:34 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/23 21:04:26 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/07 21:49:21 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,6 @@
 #include <limits.h> //TODO  strtoi
 #include <errno.h>
 #include "common.h"
-
-static int	has_dup(int *start, int *end)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (start + i < end)
-	{
-		j = i + 1;
-		while (start + j <= end)
-		{
-			if (start[i] == start[j])
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
 
 static size_t	cnt_words(const char *nums)
 {
@@ -80,31 +60,28 @@ static char	*join_args(int argn, const char **argv)
 	return (joined);
 }
 
-void	load_stack(t_stacks *game, int argn, const char **argv)
+void	load_stack(t_ps *ps, int argn, const char **argv)
 {
 	char	*concatenated_args;
 	char	*next_number;
 	char	*number_end;
 	size_t	numbers;
+	int		n;
 
-	concatenated_args = join_args(argn, argv);
-	numbers = cnt_words(concatenated_args);
-	game->stack = malloc(2 * numbers * sizeof(int));
-	game->copy = game->stack + numbers;
-	if (!game->stack)
-		exit_handler(ERROR, NULL);
-	game->max_i = game->stack + numbers - 1;
-	game->top_a = game->max_i;
+	//concatenated_args = join_args(argn, argv);
+	//numbers = cnt_words(concatenated_args);
+
 	next_number = concatenated_args;
 	while (numbers--)
 	{
-		game->copy[numbers] = ft_strtol(next_number, &number_end);
+		n = ft_strtol(next_number, &number_end);
 		next_number = number_end;
-		if (errno == ERANGE && (game->copy[numbers] & INT_MAX) == INT_MAX)
-			exit_handler(ERROR, game->stack);
+		if (errno == ERANGE && (n & INT_MAX) == INT_MAX)
+			exit_handler(ERROR, NULL);
+		if (*number_end || has_value(n, stack))
+			exit_handler(ERROR, NULL);
+		stack->val[numbers] = n;
+		stack->size++;
 	}
-	if (*number_end || has_dup(game->copy, game->max_i))
-		exit_handler(ERROR, game->stack);
 	free(concatenated_args);
-	reset(game);
 }
