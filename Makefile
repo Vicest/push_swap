@@ -19,21 +19,17 @@ CMN_FILES += index_of.c
 CMN_FILES += has_value.c
 CMN_FILES += print_status.c
 CMN_FILES += init_mem.c
-##CMN_FILES += get_position.c TODO
-##CMN_FILES += stack_size.c TODO
-##CMN_FILES += peek.c TODO
+CMN_FILES += init_stack.c
+CMN_FILES += clean_stack.c
+CMN_FILES += copy.c
 CMN_FILES += rotate.c
 CMN_FILES += swap.c
 CMN_FILES += push.c
 
 PSH_FILES :=
-##PSH_FILES += reset.c TODO
-##PSH_FILES += quick.c TODO
-##PSH_FILES += sort_3_and_rotate.c TODO
 PSH_FILES += optimizations.c
-##PSH_FILES += brute.c TODO
-##PSH_FILES += insertion_sort.c TODO
 PSH_FILES += copy_instructions.c
+PSH_FILES += block_sort.c
 PSH_FILES += push_swap.c
 
 INC_DIR := headers

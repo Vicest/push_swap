@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   preprocess.c                                       :+:      :+:    :+:   */
+/*   init_stack.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/25 16:17:25 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/08 21:42:02 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/08/08 21:21:50 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/08/08 21:22:21 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	preprocess(t_stack *stack)
+void	init_stack(t_stack **stack, size_t size)
 {
-	t_stack			*stack_cpy;
-	t_stack			*sorted_cpy;
-	size_t			pos_in_stack;
-	size_t			i;
+	t_stack	*aux;
 
-	copy(&stack_cpy, stack);
-	copy(&sorted_cpy, stack);
-	arr_sort(sorted_cpy->val, stack->size);
-	i = -1;
-	while (++i < stack->size)
-	{
-		pos_in_stack = index_of(sorted_cpy->val[i], stack_cpy);
-		stack->val[pos_in_stack] = i;
-	}
-	clean_stack(sorted_cpy);
-	clean_stack(stack_cpy);
+	aux = *stack;
+	aux = malloc(sizeof(t_stack));
+	if (!aux)
+		exit_handler(ERROR);
+	aux->val = ft_calloc(size, sizeof(int));
+	if (!aux->val)
+		exit_handler(ERROR);
+	aux->size = 0;
+	aux->max_size = size;
+	*stack = aux;
 }

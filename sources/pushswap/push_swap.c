@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:39:30 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/08 16:42:24 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/08 21:00:43 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,9 @@ static void	set_up(t_ps *ps, int argc, const char **args)
 	init_mem(ps, number_cnt);
 	load_stack(ps, concatenated_args, number_cnt);
 	free(concatenated_args);
+	print_status(ps);
 	preprocess(ps->stack_a);
+	print_status(ps);
 }
 
 int	main(int argc, const char **args)
@@ -113,6 +115,8 @@ int	main(int argc, const char **args)
 	set_up(&ps, argc, args);
 	if (is_sorted(ps.stack_a))
 		exit_handler(SUCCS);
+	block_sort(&ps, &instr, 5);
+	print_status(&ps);
 
 
 	//quick(&ps, &instr, *(ps.stack), *(ps.top_a));
@@ -120,6 +124,6 @@ int	main(int argc, const char **args)
 	optimizations(tmp);
 	print_instr(tmp);
 	//run_algorithms(&ps);
-	//system("leaks -q push_swap");
+	system("leaks -q push_swap");
 	exit_handler(SUCCS);
 }
