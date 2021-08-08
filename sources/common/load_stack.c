@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:44:34 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/07 21:49:21 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/08 16:35:55 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,73 +15,26 @@
 #include <errno.h>
 #include "common.h"
 
-static size_t	cnt_words(const char *nums)
+void	load_stack(t_ps *ps, char *numbers_str, size_t numbers_cnt)
 {
-	size_t	i;
-	size_t	len;
-
-	i = 0;
-	len = 0;
-	if (nums[0] && nums[0] != ' ')
-		len = 1;
-	while (nums[i] && nums[i + 1])
-	{
-		if (nums[i] == ' ' && nums [i + 1] != ' ')
-			len++;
-		i++;
-	}
-	return (len);
-}
-
-static char	*join_args(int argn, const char **argv)
-{
-	char	*joined;
-	char	*prev_str;
-	int		i;
-
-	joined = ft_strdup(argv[0]);
-	if (!joined)
-		exit_handler(ERROR, NULL);
-	i = 1;
-	while (i < argn)
-	{
-		prev_str = joined;
-		joined = ft_strjoin(joined, " ");
-		if (!joined)
-			exit_handler(ERROR, NULL);
-		free(prev_str);
-		prev_str = joined;
-		joined = ft_strjoin(joined, argv[i]);
-		if (!joined)
-			exit_handler(ERROR, NULL);
-		free(prev_str);
-		i++;
-	}
-	return (joined);
-}
-
-void	load_stack(t_ps *ps, int argn, const char **argv)
-{
-	char	*concatenated_args;
-	char	*next_number;
+	char	*next_number; //TODO
 	char	*number_end;
-	size_t	numbers;
 	int		n;
 
-	//concatenated_args = join_args(argn, argv);
-	//numbers = cnt_words(concatenated_args);
+	//numbers_str = join_args(argn, argv);
+	//numbers = cnt_words(numbers_str);
 
-	next_number = concatenated_args;
-	while (numbers--)
+	next_number = numbers_str;
+	while (numbers_cnt--)
 	{
 		n = ft_strtol(next_number, &number_end);
 		next_number = number_end;
 		if (errno == ERANGE && (n & INT_MAX) == INT_MAX)
-			exit_handler(ERROR, NULL);
-		if (*number_end || has_value(n, stack))
-			exit_handler(ERROR, NULL);
-		stack->val[numbers] = n;
-		stack->size++;
+			exit_handler(ERROR);
+		if (*number_end || has_value(n, ps->stack_a))
+			exit_handler(ERROR);
+		ps->stack_a->val[numbers_cnt] = n;
+		ps->stack_a->size++;
 	}
-	free(concatenated_args);
+	free(numbers_str);
 }

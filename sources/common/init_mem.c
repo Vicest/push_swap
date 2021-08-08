@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 17:38:37 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/07 17:42:02 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/08 16:38:49 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	init_stack(t_stack *stack, size_t size)
 {
 	stack->val = ft_calloc(size, sizeof(int));
 	if (!stack->val)
-		exit_handler(ERROR, NULL);
+		exit_handler(ERROR);
 	stack->size = 0;
 	stack->max_size = size;
 }

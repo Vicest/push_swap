@@ -6,7 +6,7 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:39:30 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/06 16:06:29 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/08 16:42:24 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,48 +42,84 @@ static void	print_instr(char *str)
 			ft_putstr_fd("pb\n", 1);
 	}
 }
-/*
-static void	run_algorithms(t_stacks *game)
+
+static size_t	cnt_words(const char *nums)
 {
-	char	*shortest_set;
-	char	*new_set;
+	size_t	i;
+	size_t	len;
 
-	shortest_set = insertion_sort(*game);
-	reset(game);
-	new_set = NULL;
-	if (game->max_i + 1 - game->stack <= 7)
-		new_set = bruteforce(game);
-	if (new_set && ft_strlen(new_set) < ft_strlen(shortest_set))
+	i = 0;
+	len = 0;
+	if (nums[0] && nums[0] != ' ')
+		len = 1;
+	while (nums[i] && nums[i + 1])
 	{
-		free(shortest_set);
-		shortest_set = new_set;
+		if (nums[i] == ' ' && nums [i + 1] != ' ')
+			len++;
+		i++;
 	}
-	print_instr(shortest_set);
-
-	//printf("Insertion\n");
-	//print_instr(new_set);
+	return (len);
 }
-*/
+
+static char	*join_args(int argn, const char **argv)
+{
+	char	*joined;
+	char	*prev_str;
+	int		i;
+
+	joined = ft_strdup(argv[0]);
+	if (!joined)
+		exit_handler(ERROR);
+	i = 1;
+	while (i < argn)
+	{
+		prev_str = joined;
+		joined = ft_strjoin(joined, " ");
+		if (!joined)
+			exit_handler(ERROR);
+		free(prev_str);
+		prev_str = joined;
+		joined = ft_strjoin(joined, argv[i]);
+		if (!joined)
+			exit_handler(ERROR);
+		free(prev_str);
+		i++;
+	}
+	return (joined);
+}
+
+static void	set_up(t_ps *ps, int argc, const char **args)
+{
+	char	*concatenated_args;
+	size_t	number_cnt;
+
+	concatenated_args = join_args(argc - 1, &(args[1]));
+	number_cnt = cnt_words(concatenated_args);
+	init_mem(ps, number_cnt);
+	load_stack(ps, concatenated_args, number_cnt);
+	free(concatenated_args);
+	preprocess(ps->stack_a);
+}
 
 int	main(int argc, const char **args)
 {
-	t_stacks	game;
+	t_ps		ps;
 	t_list		*instr;
 	char		*tmp;
 
 	instr = NULL;
-	ft_bzero(&game, sizeof(t_stacks));
 	if (argc == 1)
-		exit_handler(SUCCS, game.stack);
-	load_stack(&game, argc - 1, &(args[1]));
-	preprocess_stack(&game);
-	if (is_sorted(game))
-		exit_handler(SUCCS, game.stack);
-	quick(&game, &instr, *(game.stack), *(game.top_a));
+		exit_handler(SUCCS);
+	set_up(&ps, argc, args);
+	if (is_sorted(ps.stack_a))
+		exit_handler(SUCCS);
+
+
+	//quick(&ps, &instr, *(ps.stack), *(ps.top_a));
 	tmp = copy_instructions(instr);
 	optimizations(tmp);
 	print_instr(tmp);
-	//run_algorithms(&game);
+	//run_algorithms(&ps);
 	//system("leaks -q push_swap");
-	exit_handler(SUCCS, game.stack);
+	exit_handler(SUCCS);
 }
