@@ -6,11 +6,12 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 18:36:15 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/08 18:39:13 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/09 20:04:31 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h> //TODO
 /*
 static int	find_min(t_stack *stack) //TODO
 {
@@ -49,6 +50,20 @@ static size_t	find_from_base(t_stack *stack, int max_pickable)
 	return (i + 1);
 }
 
+static size_t	where_index(t_stack *stack, int new_val) //TODO name
+{
+	const size_t	size = stack->size;
+	size_t	i;
+
+	i = 1;
+	while (i < size)
+	{
+		if (stack->val[i - 1] < new_val && new_val < stack->val[i])
+			return (i);
+	}
+	return (0);
+}
+
 static void	push_block_sorted(t_ps *ps, t_list **instr,
 		int min_val, size_t block_size)
 {
@@ -75,18 +90,19 @@ static void	push_block_sorted(t_ps *ps, t_list **instr,
 
 void	block_sort(t_ps *ps, t_list **instr, size_t blocks)
 {
-	//Pseudo Again
-	int		min_val = 0;
-	size_t	block_size = (ps->stack_a->size + 1) / blocks; //TODO Elements missing
-/*
-	while (blocks-- > 1)
-	{
+	const size_t	block_size = ps->stack_a->size / blocks;
+	const size_t	remainder_block = ps->stack_a->size % blocks;
+	int		min_val;
 
-	*/
+	print_status(ps);
+	min_val = block_size - 1;
+	while (blocks > 0)
+	{
 		push_block_sorted(ps, instr, min_val, block_size);
-		/*
 		min_val += block_size;
+		print_status(ps);
+		blocks--;
 	}
-	*/
-	//push_block_sorted(ps, instr, min_val, ps->stack_a->size);
+	push_block_sorted(ps, instr, min_val, remainder_block);
+	print_status(ps);
 }

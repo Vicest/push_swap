@@ -6,27 +6,32 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 15:44:12 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/06 16:27:53 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/09 16:48:21 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
+#include <stdbool.h>
 
 void	arr_sort(int *arr, size_t size)
 {
 	size_t	i;
-	size_t	j;
+	bool	swapped;
 
-	i = 0;
-	while (i < size - 1)
+	i = 1;
+	swapped = true;
+	while (swapped)
 	{
-		j = i;
-		while (j < size - 1)
+		i = 1;
+		swapped = false;
+		while (i < size)
 		{
-			if (arr[j] < arr[j + 1])
-				ft_swap(&arr[j], &arr[j + 1]);
-			j++;
+			if (arr[i - 1] > arr[i])
+			{
+				ft_swap(&arr[i - 1], &arr[i]);
+				swapped = true;
+			}
+			i++;
 		}
-		i++;
 	}
 }

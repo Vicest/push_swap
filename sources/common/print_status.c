@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/05 14:38:14 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/08 16:06:16 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/09 17:21:22 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ static void	print_stack(t_stack *stack)
 {
 	size_t	i;
 
-	i = 0;
-	printf("%d", stack->val[i]);
-	while (++i < stack->size)
-		printf(" %d", stack->val[i]);
+	if (stack->size > 0)
+	{
+		i = 0;
+		printf("%d", stack->val[i]);
+		while (++i < stack->size)
+			printf(" %d", stack->val[i]);
+	}
 	printf("\n");
 }
 
