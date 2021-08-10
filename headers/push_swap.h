@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 20:33:08 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/08 18:16:21 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/10 20:06:55 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 # include "common.h"
 
 # define BRUTEFORCE_DEPTH 6
+
+typedef struct s_block_aux
+{
+	size_t	a_top_rot;
+	size_t	a_base_rrot;
+	size_t	b_top_rot
+	size_t	b_base_rrot;
+	size_t	best_top_rot;
+	size_t	best_base_rrot;
+	int		top_candidate;
+	int		base_candidate;
+}			t_block_aux;
 
 char	*copy_instructions(t_list *last_instr);
 //void	inc_instr(t_stacks *game, t_list *last_instr);
