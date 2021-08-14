@@ -28,6 +28,8 @@ CMN_FILES += push.c
 
 PSH_FILES :=
 PSH_FILES += optimizations.c
+##PSH_FILES += rotate_value_to_top.c
+PSH_FILES += find_candidates.c
 PSH_FILES += copy_instructions.c
 PSH_FILES += block_sort.c
 PSH_FILES += push_swap.c

@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 20:33:08 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/10 20:06:55 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/14 18:35:56 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 
 # define BRUTEFORCE_DEPTH 6
 
-typedef struct s_block_aux
+typedef struct s_moves
 {
-	size_t	a_top_rot;
-	size_t	a_base_rrot;
-	size_t	b_top_rot
-	size_t	b_base_rrot;
-	size_t	best_top_rot;
-	size_t	best_base_rrot;
+	size_t	a_top;
+	size_t	a_base;
+	size_t	b_top;
+	size_t	b_base;
+	size_t	best_top;
+	size_t	best_base;
 	int		top_candidate;
 	int		base_candidate;
-}			t_block_aux;
+}			t_moves;
 
 char	*copy_instructions(t_list *last_instr);
 //void	inc_instr(t_stacks *game, t_list *last_instr);
@@ -39,4 +39,7 @@ void	block_sort(t_ps *ps, t_list **instr, size_t blocks);
 //char	*bruteforce(t_stacks *game);
 //void	quick(t_stacks *game, t_list **instr, int base_val, int top_val);
 //void	bubble_sort(t_list **inst, t_stacks *game);
+
+void	rotate_value_to_top(int value, t_stack *stack, t_list **instr);
+void	find_candidates(t_stack *stack, t_moves *sort_info, int max_pick);
 #endif

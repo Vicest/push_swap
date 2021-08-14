@@ -12,13 +12,13 @@ pstest()
 	ARG=$(./randomize $1)
 	SOLUTION=$(./push_swap $ARG)
 	TOTAL_MOVES=$(echo $SOLUTION | wc -l | tr -s ' ' | cut -d ' ' -f 2)
-	LOG_LINE=$ARG",--->,"$(echo $SOLUTION | ./checker_Mac $ARG)",$TOTAL_MOVES"
-	echo $LOG_LINE >> $FILENAME
+	echo "$ARG,--->,"$(echo $SOLUTION | ./checker_Mac $ARG)",$TOTAL_MOVES"
 }
 
 echo "" > $FILENAME
-for i in {1..50}
+while true
 do
+	sleep 0.75
 	pstest $1
 done
 

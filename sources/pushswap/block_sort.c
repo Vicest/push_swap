@@ -6,12 +6,11 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 18:36:15 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/10 20:29:35 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/14 18:39:28 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdboll.h>
 #include <stdio.h> //TODO
 
 static size_t	where_index(t_stack *stack, int new_val) //TODO name
@@ -20,114 +19,108 @@ static size_t	where_index(t_stack *stack, int new_val) //TODO name
 	size_t	i;
 
 	i = 1;
+	if (stack->val[0] > new_val && new_val > stack->val[size - 1])
+		return (0);
 	while (i < size)
 	{
 		if (stack->val[i - 1] < new_val && new_val < stack->val[i])
 			return (i);
+		i++;
 	}
-	return (0);
+	return (size);
 }
 
-static size_t	find_candidates(t_stack *stack, t_block_aux *sort_info,
-		int max_pickable)
+//SET ROTATIONS WITH A|B  TODO
+static void	adjust_rotations_with_b(t_stack *stack, t_moves *sort_info)
 {
-	const size_t	size = stack->size;
-	size_t			i;
-	bool			found_one;
+	size_t	size = stack->size;
 
-	found_one = false;
-	i = 0;
-	while (i < size)
+	sort_info->b_base = where_index(stack, sort_info->base_candidate);
+	if (sort_info->b_base == stack->size)
+		sort_info->b_base = 0;
+	sort_info->best_base = ft_max(sort_info->a_base, sort_info->b_base);
+	sort_info->b_top = size - where_index(stack, sort_info->top_candidate);
+	if (sort_info->b_top == stack->size)
+		sort_info->b_top = 0;
+	sort_info->best_top = ft_max(sort_info->a_top, sort_info->b_top);
+}
+
+static void	set_stacks(t_ps *ps, t_moves *sort_info, t_list **instr)
+{
+	//PSEUDO -> Needs cleaning
+	//TODO Consider that size+ rotates are possible as well
+	if (sort_info->best_base > sort_info->best_top)
 	{
-		if (stack->val[i] <= max_pickable)
+		if (sort_info->a_top > sort_info->b_top)
 		{
-			sort_info->top_candidate = stack->val[i];
-			sort_info->top_rotates = size - i - 1;
-			if (!found_one)
-			{
-				found_one = true;
-				sort_info->base_candidate = sort_info->top_candidate;
-				sort_info->base_rrotates = i + 1;
-			}
-			i++;
+			log_and_do_n(ps, instr, RR, sort_info->b_top);
+			log_and_do_n(ps, instr, RA, sort_info->best_top
+					- ft_min(sort_info->a_top, sort_info->b_top));
+		}
+		else
+		{
+			log_and_do_n(ps, instr, RR, sort_info->a_top);
+			log_and_do_n(ps, instr, RB, sort_info->best_top
+					- ft_min(sort_info->a_top, sort_info->b_top));
+		}
+	}
+	else
+	{
+		if (sort_info->a_base > sort_info->b_base)
+		{
+			log_and_do_n(ps, instr, RRR, sort_info->b_base);
+			log_and_do_n(ps, instr, RRA, sort_info->best_base
+					- ft_min(sort_info->a_base, sort_info->b_base));
+		}
+		else
+		{
+			log_and_do_n(ps, instr, RRR, sort_info->a_base);
+			log_and_do_n(ps, instr, RRB, sort_info->best_base
+					- ft_min(sort_info->a_base, sort_info->b_base));
 		}
 	}
 }
 
-//SET ROTATIONS WITH A|B  TODO
-static void	adjust_rotations_with_b(t_stack *stack, t_block_aux *sort_info)
+static void	push_block_sorted(t_ps *ps, t_list **instr, t_moves *sort_info,
+		int max_val, size_t block_size)
 {
-	size_t	size = stack->size;
-
-	sort_info->b_base_rrot = 1 + where_index(stack,
-			sort_info->base_candidate);
-	sort_info->b_top_rot = size - 1
-		- where_index(stack, sort_info->top_candidate);
-	sort_info->best_top_rot =
-		ft_min(sort_info->a_top_rot, sort_info->b_top_rot);
-	sort_info->best_base_rot =
-		ft_min(sort_info->a_base_rrot, sort_info->b_base_rrot);
-}
-
-static void	set_stacks(t_ps *ps, t_block_aux *sort_info, t_list **instr)
-{
-	//PSEUDO
-	//TODO Consider that size+ rotates are possible as
-	if (best_bot > best_top)
-	{
-		if (a_top > b_top)
-			log_and_do_n(RR, b_top);
-			log_and_do_n(RA, best_top - min(a_top, b_top));
-		else
-			log_and_do_n(RR, a_top);
-			log_and_do_n(RB, best_top - min(a_top, b_top));
-	}
-	else
-	{
-		if (a_base > b_base)
-			log_and_do_n(RRR, b_base);
-			log_and_do_n(RRA, best_base - min(a_top, b_top));
-		else
-			log_and_do_n(RRR, a_base);
-			log_and_do_n(RRB, best_base - min(a_top, b_top));
-	}
-}
-
-static void	push_block_sorted(t_ps *ps, t_list **instr, t_block_aux *sort_info,
-		int min_val, size_t block_size)
-{
+	size_t	rrot_to_top;
 	size_t	i;
-	size_t	rra_to_top;
-	size_t	ra_to_top;
 
 	i = 0;
 	while (i < block_size)
 	{
-		find_candidates(ps->stack_a, sort_info, min_val + block_size);
+		find_candidates(ps->stack_a, sort_info, max_val);
 		adjust_rotations_with_b(ps->stack_b, sort_info);
 		set_stacks(ps, sort_info, instr);
 		log_and_do_instr(ps, instr, PB);
 		i++;
 	}
+	rrot_to_top = index_of(max_val, ps->stack_b) + 1;
+	if (rrot_to_top < (ps->stack_b->size + 1) / 2)
+		log_and_do_n(ps, instr, RRB, rrot_to_top);
+	else
+		log_and_do_n(ps, instr, RB, ps->stack_b->size - rrot_to_top);
 }
 
 void	block_sort(t_ps *ps, t_list **instr, size_t blocks)
 {
 	const size_t	block_size = ps->stack_a->size / blocks;
 	const size_t	remainder_block = ps->stack_a->size % blocks;
-	t_block_aux		sort_info;
-	int				min_val;
+	t_moves			sort_info;
+	int				max_val;
 
+	max_val = -1;
 	print_status(ps);
-	min_val = block_size - 1;
 	while (blocks > 0)
 	{
-		push_block_sorted(ps, instr, &block_aux, min_val, block_size);
-		min_val += block_size;
-		print_status(ps);
+		max_val += block_size;
+		push_block_sorted(ps, instr, &sort_info, max_val, block_size);
 		blocks--;
+	print_status(ps);
 	}
-	push_block_sorted(ps, instr, &block_aux, min_val, remainder_block);
-	//TODO SEND BACK TO A
+	max_val += remainder_block;
+	push_block_sorted(ps, instr, &sort_info, max_val, remainder_block);
+	log_and_do_n(ps, instr, PA, ps->stack_b->size);
 	print_status(ps);
 }

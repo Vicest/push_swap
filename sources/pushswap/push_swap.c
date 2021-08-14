@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:23:44 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/10 17:48:32 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/14 20:27:14 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,21 @@ static void	print_instr(char *str)
 static size_t	cnt_words(const char *nums)
 {
 	size_t	i;
-	size_t	len;
+	size_t	words;
 
 	i = 0;
-	len = 0;
-	if (nums[0] && nums[0] != ' ')
-		len = 1;
-	while (nums[i] && nums[i + 1])
-	{
-		if (nums[i] == ' ' && nums [i + 1] != ' ')
-			len++;
+	words = 0;
+	while (nums[i] == ' ')
 		i++;
+	while (nums[i])
+	{
+		words++;
+		while (nums[i] && nums[i] != ' ')
+			i++;
+		while (nums[i] == ' ')
+			i++;
 	}
-	return (len);
+	return (words);
 }
 
 static char	*join_args(int argn, const char **argv)
@@ -113,7 +115,7 @@ int	main(int argc, const char **args)
 	set_up(&ps, argc, args);
 	if (is_sorted(ps.stack_a))
 		exit_handler(SUCCS);
-	block_sort(&ps, &instr, 2);
+	block_sort(&ps, &instr, 3);
 
 
 	//quick(&ps, &instr, *(ps.stack), *(ps.top_a));
@@ -121,6 +123,6 @@ int	main(int argc, const char **args)
 	optimizations(tmp);
 	print_instr(tmp);
 	//run_algorithms(&ps);
-	system("leaks -q push_swap");
+	//system("leaks -q push_swap");
 	exit_handler(SUCCS);
 }

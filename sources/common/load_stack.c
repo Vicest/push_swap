@@ -6,12 +6,12 @@
 /*   By: vicmarti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:44:34 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/08 20:57:36 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/14 20:38:11 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <limits.h> //TODO  strtoi
+#include <limits.h>
 #include <errno.h>
 #include "common.h"
 
@@ -35,16 +35,16 @@ static int	has_repetitions(t_stack *stack)
 
 void	load_stack(t_ps *ps, char *numbers_str, size_t numbers_cnt)
 {
-	char	*next_number; //TODO
+	char	*next_number;
 	char	*number_end;
 
 	next_number = numbers_str;
 	while (numbers_cnt--)
 	{
-		ps->stack_a->val[numbers_cnt] = ft_strtol(next_number, &number_end);
+		ps->stack_a->val[numbers_cnt] = ft_strtoi(next_number, &number_end);
 		next_number = number_end;
-		if ((ps->stack_a->val[numbers_cnt] & INT_MAX) == INT_MAX &&
-			errno == ERANGE)
+		if ((ps->stack_a->val[numbers_cnt] == INT_MAX
+				|| ps->stack_a->val[numbers_cnt] == INT_MIN) && errno == ERANGE)
 			exit_handler(ERROR);
 		if (*number_end != '\0' && *number_end != ' ')
 			exit_handler(ERROR);
