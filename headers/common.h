@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:38:00 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/08 21:37:22 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/15 16:32:16 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	print_status(t_ps *ps);
 void	preprocess(t_stack *stack);
 int		is_sorted(t_stack *stack);
 int		has_value(int n, t_stack *stack);
+int		max_val(t_stack *stack);
 size_t	index_of(int value, t_stack *stack);
 
 void	swap(t_stack *stack);

@@ -6,40 +6,53 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 18:36:15 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/14 18:39:28 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/15 16:55:45 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h> //TODO
 
-static size_t	where_index(t_stack *stack, int new_val) //TODO name
+static size_t	place_greatest(t_stack *stack)
 {
 	const size_t	size = stack->size;
-	size_t	i;
+	size_t			i;
 
-	i = 1;
+	i = 0;
+	if (size == 0)
+		return (i);
+	while (++i < size)
+		if (stack->val[i - 1] > stack->val[i])
+			return (i);
+	return (i);
+}
+
+static size_t	index_sorted(t_stack *stack, int new_val)
+{
+	const size_t	size = stack->size;
+	size_t			i;
+
+	if (max_val(stack) < new_val)
+		return (place_greatest(stack));
 	if (stack->val[0] > new_val && new_val > stack->val[size - 1])
 		return (0);
-	while (i < size)
-	{
+	i = 0;
+	while (++i < size)
 		if (stack->val[i - 1] < new_val && new_val < stack->val[i])
 			return (i);
-		i++;
-	}
 	return (size);
 }
 
-//SET ROTATIONS WITH A|B  TODO
+//SET ROTATIONS WITH A|B  TODO when B is unsorted and pushable is lowest or greatest
 static void	adjust_rotations_with_b(t_stack *stack, t_moves *sort_info)
 {
 	size_t	size = stack->size;
 
-	sort_info->b_base = where_index(stack, sort_info->base_candidate);
+	sort_info->b_base = index_sorted(stack, sort_info->base_candidate);
 	if (sort_info->b_base == stack->size)
 		sort_info->b_base = 0;
 	sort_info->best_base = ft_max(sort_info->a_base, sort_info->b_base);
-	sort_info->b_top = size - where_index(stack, sort_info->top_candidate);
+	sort_info->b_top = size - index_sorted(stack, sort_info->top_candidate);
 	if (sort_info->b_top == stack->size)
 		sort_info->b_top = 0;
 	sort_info->best_top = ft_max(sort_info->a_top, sort_info->b_top);
@@ -111,13 +124,11 @@ void	block_sort(t_ps *ps, t_list **instr, size_t blocks)
 	int				max_val;
 
 	max_val = -1;
-	print_status(ps);
 	while (blocks > 0)
 	{
 		max_val += block_size;
 		push_block_sorted(ps, instr, &sort_info, max_val, block_size);
 		blocks--;
-	print_status(ps);
 	}
 	max_val += remainder_block;
 	push_block_sorted(ps, instr, &sort_info, max_val, remainder_block);

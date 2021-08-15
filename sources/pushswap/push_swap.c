@@ -6,108 +6,19 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 17:23:44 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/14 20:27:14 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/15 16:26:14 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>//TODO redundant?
-#include <stdio.h> //REMOVE
 #include "push_swap.h"
-
-static void	print_instr(char *str)
-{
-	while (*(str++))
-	{
-		if (*(str - 1) == SA)
-			ft_putstr_fd("sa\n", 1);
-		else if (*(str - 1) == RA)
-			ft_putstr_fd("ra\n", 1);
-		else if (*(str - 1) == RRA)
-			ft_putstr_fd("rra\n", 1);
-		else if (*(str - 1) == SB)
-			ft_putstr_fd("sb\n", 1);
-		else if (*(str - 1) == RB)
-			ft_putstr_fd("rb\n", 1);
-		else if (*(str - 1) == RRB)
-			ft_putstr_fd("rrb\n", 1);
-		else if (*(str - 1) == SS)
-			ft_putstr_fd("ss\n", 1);
-		else if (*(str - 1) == RR)
-			ft_putstr_fd("rr\n", 1);
-		else if (*(str - 1) == RRR)
-			ft_putstr_fd("rrr\n", 1);
-		else if (*(str - 1) == PA)
-			ft_putstr_fd("pa\n", 1);
-		else if (*(str - 1) == PB)
-			ft_putstr_fd("pb\n", 1);
-	}
-}
-
-static size_t	cnt_words(const char *nums)
-{
-	size_t	i;
-	size_t	words;
-
-	i = 0;
-	words = 0;
-	while (nums[i] == ' ')
-		i++;
-	while (nums[i])
-	{
-		words++;
-		while (nums[i] && nums[i] != ' ')
-			i++;
-		while (nums[i] == ' ')
-			i++;
-	}
-	return (words);
-}
-
-static char	*join_args(int argn, const char **argv)
-{
-	char	*joined;
-	char	*prev_str;
-	int		i;
-
-	joined = ft_strdup(argv[0]);
-	if (!joined)
-		exit_handler(ERROR);
-	i = 1;
-	while (i < argn)
-	{
-		prev_str = joined;
-		joined = ft_strjoin(joined, " ");
-		if (!joined)
-			exit_handler(ERROR);
-		free(prev_str);
-		prev_str = joined;
-		joined = ft_strjoin(joined, argv[i]);
-		if (!joined)
-			exit_handler(ERROR);
-		free(prev_str);
-		i++;
-	}
-	return (joined);
-}
-
-static void	set_up(t_ps *ps, int argc, const char **args)
-{
-	char	*concatenated_args;
-	size_t	number_cnt;
-
-	concatenated_args = join_args(argc - 1, &(args[1]));
-	number_cnt = cnt_words(concatenated_args);
-	init_mem(ps, number_cnt);
-	load_stack(ps, concatenated_args, number_cnt);
-	free(concatenated_args);
-	preprocess(ps->stack_a);
-}
 
 int	main(int argc, const char **args)
 {
 	t_ps		ps;
 	t_list		*instr;
-	char		*tmp;
+	size_t		blocks;
+	//char		*tmp;
+	char		*shortest;
 
 	instr = NULL;
 	if (argc == 1)
@@ -115,14 +26,31 @@ int	main(int argc, const char **args)
 	set_up(&ps, argc, args);
 	if (is_sorted(ps.stack_a))
 		exit_handler(SUCCS);
-	block_sort(&ps, &instr, 3);
+	blocks = 3;
+	block_sort(&ps, &instr, blocks);
+	shortest = copy_instructions(instr);
+	ft_lstclear(&instr, NULL);
+	optimizations(shortest);
+	/*
+	while (++blocks < ps)
+	{
+		block_sort(&ps, &instr, blocks);
+		tmp = copy_instructions(instr);
+		ft_lstclear(&instr, NULL);
+		optimizations(tmp);
+		if (ft_strlen(tmp) < ft_strlen(shortest))
+		{
+			free(shortest);
+			shortest = tmp;
+		}
+		else
+			free(tmp);
+		tmp = NULL;
+	}
+*/
 
 
-	//quick(&ps, &instr, *(ps.stack), *(ps.top_a));
-	tmp = copy_instructions(instr);
-	optimizations(tmp);
-	print_instr(tmp);
-	//run_algorithms(&ps);
+	print_instr(shortest);
 	//system("leaks -q push_swap");
 	exit_handler(SUCCS);
 }
