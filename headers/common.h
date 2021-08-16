@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:38:00 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/15 16:32:16 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/16 19:47:38 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,13 @@ typedef struct s_ps
 {
 	t_stack	*stack_a;
 	t_stack	*stack_b;
+	t_stack	*a_backup;
 }		t_ps;
 
 void	exit_handler(char status);
 void	arr_sort(int *arr, size_t size);
 
-//void	reset(t_stacks *game);
+void	reset(t_ps *ps);
 void	init_mem(t_ps *ps, size_t size);
 void	init_stack(t_stack **stack, size_t size);
 void	copy(t_stack **dst, t_stack *src);
@@ -59,6 +60,7 @@ void	preprocess(t_stack *stack);
 int		is_sorted(t_stack *stack);
 int		has_value(int n, t_stack *stack);
 int		max_val(t_stack *stack);
+int		min_val(t_stack *stack);
 size_t	index_of(int value, t_stack *stack);
 
 void	swap(t_stack *stack);

@@ -6,106 +6,96 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 18:36:15 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/15 16:55:45 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/16 17:57:56 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h> //TODO
 
-static size_t	place_greatest(t_stack *stack)
+static void	place_greatest_smallest(t_ps *ps, t_list **instr)
 {
-	const size_t	size = stack->size;
+	const size_t	size = ps->stack_b->size;
 	size_t			i;
 
 	i = 0;
 	if (size == 0)
-		return (i);
+		return ;
 	while (++i < size)
-		if (stack->val[i - 1] > stack->val[i])
-			return (i);
-	return (i);
+	{
+		if (ps->stack_b->val[i - 1] > ps->stack_b->val[i])
+		{
+			if (i < size / 2)
+				log_and_do_n(ps, instr, RRB, i);
+			else
+				log_and_do_n(ps, instr, RB, size - i);
+			return;
+		}
+	}
 }
 
-static size_t	index_sorted(t_stack *stack, int new_val)
+static void	place_general_case(t_ps *ps, t_list **instr, int new_val)
 {
-	const size_t	size = stack->size;
+	const size_t	size = ps->stack_b->size;
 	size_t			i;
 
-	if (max_val(stack) < new_val)
-		return (place_greatest(stack));
-	if (stack->val[0] > new_val && new_val > stack->val[size - 1])
-		return (0);
 	i = 0;
+	if (size == 0)
+		return ;
 	while (++i < size)
-		if (stack->val[i - 1] < new_val && new_val < stack->val[i])
-			return (i);
-	return (size);
-}
-
-//SET ROTATIONS WITH A|B  TODO when B is unsorted and pushable is lowest or greatest
-static void	adjust_rotations_with_b(t_stack *stack, t_moves *sort_info)
-{
-	size_t	size = stack->size;
-
-	sort_info->b_base = index_sorted(stack, sort_info->base_candidate);
-	if (sort_info->b_base == stack->size)
-		sort_info->b_base = 0;
-	sort_info->best_base = ft_max(sort_info->a_base, sort_info->b_base);
-	sort_info->b_top = size - index_sorted(stack, sort_info->top_candidate);
-	if (sort_info->b_top == stack->size)
-		sort_info->b_top = 0;
-	sort_info->best_top = ft_max(sort_info->a_top, sort_info->b_top);
-}
-
-static void	set_stacks(t_ps *ps, t_moves *sort_info, t_list **instr)
-{
-	//PSEUDO -> Needs cleaning
-	//TODO Consider that size+ rotates are possible as well
-	if (sort_info->best_base > sort_info->best_top)
 	{
-		if (sort_info->a_top > sort_info->b_top)
+		if (ps->stack_b->val[i - 1] < new_val && new_val <  ps->stack_b->val[i])
 		{
-			log_and_do_n(ps, instr, RR, sort_info->b_top);
-			log_and_do_n(ps, instr, RA, sort_info->best_top
-					- ft_min(sort_info->a_top, sort_info->b_top));
-		}
-		else
-		{
-			log_and_do_n(ps, instr, RR, sort_info->a_top);
-			log_and_do_n(ps, instr, RB, sort_info->best_top
-					- ft_min(sort_info->a_top, sort_info->b_top));
+			if (i < size / 2)
+				log_and_do_n(ps, instr, RRB, i);
+			else
+				log_and_do_n(ps, instr, RB, size - i);
+			return;
 		}
 	}
+}
+
+static void	set_stack_b(t_ps *ps, t_list **instr, int new_val)
+{
+	if (max_val(ps->stack_b) < new_val || min_val(ps->stack_b) > new_val)
+		place_greatest_smallest(ps, instr);
 	else
-	{
-		if (sort_info->a_base > sort_info->b_base)
-		{
-			log_and_do_n(ps, instr, RRR, sort_info->b_base);
-			log_and_do_n(ps, instr, RRA, sort_info->best_base
-					- ft_min(sort_info->a_base, sort_info->b_base));
-		}
-		else
-		{
-			log_and_do_n(ps, instr, RRR, sort_info->a_base);
-			log_and_do_n(ps, instr, RRB, sort_info->best_base
-					- ft_min(sort_info->a_base, sort_info->b_base));
-		}
-	}
+		place_general_case(ps, instr, new_val);
+}
+
+static void	set_stack_a(t_ps *ps, t_list **instr, int max_val)
+{
+	const size_t	size = ps->stack_a->size;
+	size_t	i;
+	size_t	rot;
+	size_t	rrot;
+
+	i = -1;
+	rrot = 1;
+	while (++i < size && ps->stack_a->val[i] > max_val)
+		rrot++;
+	i = size;
+	rot = 0;
+	while (--i > 0 && ps->stack_a->val[i] > max_val)
+		rot++;
+	if (rot < rrot)
+		log_and_do_n(ps, instr, RA, rot);
+	else
+		log_and_do_n(ps, instr, RRA, rrot);
 }
 
 static void	push_block_sorted(t_ps *ps, t_list **instr, t_moves *sort_info,
 		int max_val, size_t block_size)
 {
 	size_t	rrot_to_top;
+	(void)sort_info;
 	size_t	i;
 
 	i = 0;
 	while (i < block_size)
 	{
-		find_candidates(ps->stack_a, sort_info, max_val);
-		adjust_rotations_with_b(ps->stack_b, sort_info);
-		set_stacks(ps, sort_info, instr);
+		set_stack_a(ps, instr, max_val);
+		set_stack_b(ps, instr, ps->stack_a->val[ps->stack_a->size - 1]);
 		log_and_do_instr(ps, instr, PB);
 		i++;
 	}
@@ -133,5 +123,4 @@ void	block_sort(t_ps *ps, t_list **instr, size_t blocks)
 	max_val += remainder_block;
 	push_block_sorted(ps, instr, &sort_info, max_val, remainder_block);
 	log_and_do_n(ps, instr, PA, ps->stack_b->size);
-	print_status(ps);
 }
