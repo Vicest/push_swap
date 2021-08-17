@@ -1,40 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_algoritms.c                                    :+:      :+:    :+:   */
+/*   run_algorithms.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/16 20:01:11 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/16 21:23:51 by vicmarti         ###   ########.fr       */
+/*   Created: 2021/08/17 17:34:20 by vicmarti          #+#    #+#             */
+/*   Updated: 2021/08/17 20:58:03 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//Pseudo code warning TODO
+//TODO INSTR should disappear
 char	*run_algorithms(t_ps *ps)
 {
-	t_list	*instr;
+	size_t	blocks;
 	char	*tmp;
 	char	*shortest;
 
-	if (size < 10)
-		return brute();
+	if (ps->stack_a->size <= BRUTEFORCE_DEPTH)
+		return (bruteforce(ps));
 	else
 	{
-		shortest = block_sorr(2);
-		shortest = copy_instructions(instr);
-		optimizations(shortest);
-		ft_lstclear(&instr);
-		block = 3;
-		while (block < size / 10)
+		blocks = 2;
+		shortest = block_sort(ps, blocks);
+		while (++blocks < ps->stack_a->size / 10)
 		{
 			reset(ps);
-			tmp = block_sort(blocks++);
-			tmp = copy_instructions(instr);
-			optimizations(tmp);
-			ft_lstclear(&instr);
+			tmp = block_sort(ps, blocks);
 			if (ft_strlen(shortest) > ft_strlen(tmp))
 			{
 				free(shortest);

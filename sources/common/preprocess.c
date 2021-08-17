@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 16:17:25 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/08 21:42:02 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/17 20:41:39 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	preprocess(t_stack *stack)
 	size_t			pos_in_stack;
 	size_t			i;
 
-	copy(&stack_cpy, stack);
-	copy(&sorted_cpy, stack);
+	init_stack(&stack_cpy, stack->size);
+	copy(stack_cpy, stack);
+	init_stack(&sorted_cpy, stack->size);
+	copy(sorted_cpy, stack);
 	arr_sort(sorted_cpy->val, stack->size);
 	i = -1;
 	while (++i < stack->size)

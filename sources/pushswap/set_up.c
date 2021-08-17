@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 16:09:07 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/15 16:14:54 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/17 20:40:33 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void	set_up(t_ps *ps, int argc, const char **args)
 	load_stack(ps, concatenated_args, number_cnt);
 	free(concatenated_args);
 	preprocess(ps->stack_a);
+	copy(ps->a_backup, ps->stack_a);
 }

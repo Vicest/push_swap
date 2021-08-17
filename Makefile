@@ -30,6 +30,7 @@ CMN_FILES += swap.c
 CMN_FILES += push.c
 
 PSH_FILES :=
+PSH_FILES += run_algorithms.c
 PSH_FILES += optimizations.c
 ##PSH_FILES += rotate_value_to_top.c
 PSH_FILES += set_up.c
@@ -37,6 +38,7 @@ PSH_FILES += print_instr.c
 PSH_FILES += find_candidates.c
 PSH_FILES += copy_instructions.c
 PSH_FILES += block_sort.c
+PSH_FILES += brute.c
 PSH_FILES += push_swap.c
 
 INC_DIR := headers

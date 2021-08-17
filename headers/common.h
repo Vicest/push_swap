@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 20:38:00 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/16 19:47:38 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/17 20:53:48 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,20 @@
 # define ERROR 1
 
 # define NOP	'\x00'
-# define SA		'\x41'
-# define RA		'\x42'
-# define RRA	'\x43'
-# define SB		'\x44'
-# define RB		'\x45'
-# define RRB	'\x46'
-# define SS		'\x47'
-# define RR		'\x48'
-# define RRR	'\x49'
-# define PA		'\x4a'
-# define PB		'\x4b'
+# define SA		'\x01'
+# define RA		'\x02'
+# define RRA	'\x03'
+# define SB		'\x04'
+# define RB		'\x05'
+# define RRB	'\x06'
+# define SS		'\x07'
+# define RR		'\x08'
+# define RRR	'\x09'
+# define PA		'\x0a'
+# define PB		'\x0b'
+
+# define FIRST_INSTR SA
+# define LAST_INSTR PB
 
 typedef struct s_stack
 {
@@ -52,7 +55,7 @@ void	arr_sort(int *arr, size_t size);
 void	reset(t_ps *ps);
 void	init_mem(t_ps *ps, size_t size);
 void	init_stack(t_stack **stack, size_t size);
-void	copy(t_stack **dst, t_stack *src);
+void	copy(t_stack *dst, t_stack *src);
 void	clean_stack(t_stack *stack);
 void	load_stack(t_ps *ps, char *numbers_str, size_t numbers_cnt);
 void	print_status(t_ps *ps);

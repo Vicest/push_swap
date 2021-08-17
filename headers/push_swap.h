@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/01 20:33:08 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/15 16:08:39 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/17 18:01:13 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,15 @@ typedef struct s_moves
 char	*copy_instructions(t_list *last_instr);
 void	print_instr(char *str);
 void	set_up(t_ps *ps, int argc, const char **args);
+char	*run_algorithms(t_ps *ps);
+void	optimizations(char *instr);
 //void	inc_instr(t_stacks *game, t_list *last_instr);
 //void	delete_last_instr(t_backtrace_info *bi, t_stacks *game);
 //void	sort_rotate_3(t_stacks *game, t_list **instr, size_t size);
-void	optimizations(char *instr);
 
-void	block_sort(t_ps *ps, t_list **instr, size_t blocks);
+char	*block_sort(t_ps *ps, size_t blocks);
+char	*bruteforce(t_ps *ps);
 //char	*insertion_sort(t_stacks game);
-//char	*bruteforce(t_stacks *game);
 //void	quick(t_stacks *game, t_list **instr, int base_val, int top_val);
 //void	bubble_sort(t_list **inst, t_stacks *game);
 

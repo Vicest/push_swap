@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 20:21:35 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/16 19:52:19 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/17 20:56:37 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	reset(t_ps *ps)
 {
-	free(ps->stack_a);
-	copy(&ps->stack_a, ps->a_backup);
+	copy(ps->stack_a, ps->a_backup);
+	ps->stack_b->size = 0;
 }

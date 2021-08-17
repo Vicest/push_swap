@@ -6,39 +6,39 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 16:26:49 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/07/24 22:11:09 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/17 20:57:34 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	test_combination(t_stacks *game, char *sequence)
+static int	test_combination(t_ps *ps, char *sequence)
 {
-	do_sequence(game, sequence);
-	if (is_sorted(*game))
+	do_sequence(ps, sequence);
+	if (ps->stack_b->size == 0 && is_sorted(ps->stack_a))
 		return (1);
-	reset(game);
+	reset(ps);
 	return (0);
 }
 
-static int	generate_combination(char *sequence, int i, t_stacks *game)
+static int	generate_combination(char *sequence, int i, t_ps *ps)
 {
 	char	instruction;
 
 	if (i == -1)
-		return (test_combination(game, sequence));
+		return (test_combination(ps, sequence));
 	instruction = FIRST_INSTR;
 	while (instruction <= LAST_INSTR)
 	{
 		sequence[i] = instruction;
-		if (generate_combination(sequence, i - 1, game))
+		if (generate_combination(sequence, i - 1, ps))
 			return (1);
 		instruction++;
 	}
 	return (0);
 }
 
-char	*bruteforce(t_stacks *game)
+char	*bruteforce(t_ps *ps)
 {
 	char	*sequence;
 	int		i;
@@ -50,7 +50,7 @@ char	*bruteforce(t_stacks *game)
 	while (i <= BRUTEFORCE_DEPTH)
 	{
 		sequence[i + 1] = 0;
-		if (generate_combination(sequence, i, game))
+		if (generate_combination(sequence, i, ps))
 			return (sequence);
 		i++;
 	}

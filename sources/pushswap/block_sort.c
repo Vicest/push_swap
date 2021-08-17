@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 18:36:15 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/16 17:57:56 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/17 21:08:17 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,10 @@ static void	set_stack_a(t_ps *ps, t_list **instr, int max_val)
 		log_and_do_n(ps, instr, RRA, rrot);
 }
 
-static void	push_block_sorted(t_ps *ps, t_list **instr, t_moves *sort_info,
-		int max_val, size_t block_size)
+static void	push_block_sorted(t_ps *ps, t_list **instr, int max_val,
+		size_t block_size)
 {
 	size_t	rrot_to_top;
-	(void)sort_info;
 	size_t	i;
 
 	i = 0;
@@ -106,21 +105,27 @@ static void	push_block_sorted(t_ps *ps, t_list **instr, t_moves *sort_info,
 		log_and_do_n(ps, instr, RB, ps->stack_b->size - rrot_to_top);
 }
 
-void	block_sort(t_ps *ps, t_list **instr, size_t blocks)
+char	*block_sort(t_ps *ps, size_t blocks)
 {
 	const size_t	block_size = ps->stack_a->size / blocks;
 	const size_t	remainder_block = ps->stack_a->size % blocks;
-	t_moves			sort_info;
+	t_list			*instr;
+	char			*result;
 	int				max_val;
 
+	instr = NULL;
 	max_val = -1;
 	while (blocks > 0)
 	{
 		max_val += block_size;
-		push_block_sorted(ps, instr, &sort_info, max_val, block_size);
+		push_block_sorted(ps, &instr, max_val, block_size);
 		blocks--;
 	}
 	max_val += remainder_block;
-	push_block_sorted(ps, instr, &sort_info, max_val, remainder_block);
-	log_and_do_n(ps, instr, PA, ps->stack_b->size);
+	push_block_sorted(ps, &instr, max_val, remainder_block);
+	log_and_do_n(ps, &instr, PA, ps->stack_b->size);
+	result = copy_instructions(instr);
+	optimizations(result);
+	ft_lstclear(&instr, NULL);
+	return (result);
 }
