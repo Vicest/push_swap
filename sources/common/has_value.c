@@ -6,7 +6,7 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 18:55:11 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/07 19:01:35 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/20 19:44:19 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,3 @@ int	has_value(int n, t_stack *stack)
 		i++;
 	return (i < stack->size);
 }
-

@@ -31,12 +31,10 @@ CMN_FILES += push.c
 
 PSH_FILES :=
 PSH_FILES += run_algorithms.c
-PSH_FILES += optimizations.c
-##PSH_FILES += rotate_value_to_top.c
 PSH_FILES += set_up.c
 PSH_FILES += print_instr.c
-PSH_FILES += find_candidates.c
 PSH_FILES += copy_instructions.c
+PSH_FILES += push_block_sorted.c
 PSH_FILES += block_sort.c
 PSH_FILES += brute.c
 PSH_FILES += push_swap.c
@@ -47,13 +45,10 @@ OBJ_DIR := objects
 CMN_OBJ := $(addprefix $(OBJ_DIR)/, $(patsubst %.c, %.o, $(CMN_FILES)))
 PSH_OBJ := $(addprefix $(OBJ_DIR)/, $(patsubst %.c, %.o, $(PSH_FILES)))
 
-SRC_BNS_FILES :=
-OBJ_BNS_FILES := $(patsubst %.c, %.o, $(SRC_BNS_FILES))
-
 LIBFT := libft/libft.a
 
 CC := gcc
-CFLAGS := -Wall -Werror -Wextra -I$(INC_DIR) -g #-fsanitize=address
+CFLAGS := -Wall -Werror -Wextra -I$(INC_DIR) -Ilibft
 LN_FLAGS := -Llibft -lft
 
 .PHONY: all re clean fclean norm
@@ -68,28 +63,27 @@ $(NAME) : $(CMN_OBJ) $(PSH_OBJ) $(LIBFT)
 
 $(LIBFT) :
 	@make -C libft
-	@ln -vfs libft/libft.h $(INC_DIR)/
 
+$(OBJ_DIR)/%.o :headers/%.h
 $(OBJ_DIR)/%.o :%.c
 	@mkdir -vp $(OBJ_DIR)
 	@tput setaf 8
-	$(CC) $(CFLAGS) $<  -c -o $@
+	$(CC) $(CFLAGS) $< -c -o $@
 	@tput sgr0
-
-norm :
-	@norminette $(CHK_SRC)
 
 clean :
 	@echo "Cleaning:"
 	@tput setaf 3
-	@rm -rfv $(OBJ_DIR) push_swap
+	@rm -rfv $(OBJ_DIR)
 	@tput sgr0
 
 libclean :
 	@make -C libft fclean
-	@unlink $(INC_DIR)/libft.h
 
 fclean : clean
+	@tput setaf 3
+	@rm -fv push_swap
+	@tput sgr0
 
 re :
 	@make fclean

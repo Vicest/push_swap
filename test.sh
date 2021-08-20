@@ -5,7 +5,6 @@ then
 	exit 1;
 fi
 
-FILENAME=logfile
 
 pstest()
 {
@@ -15,12 +14,9 @@ pstest()
 	echo "$ARG,--->,"$(echo $SOLUTION | ./checker_Mac $ARG)",$TOTAL_MOVES"
 }
 
-echo "" > $FILENAME
 while true
 do
 	sleep 0.75
 	pstest $1
 done
 
-MAX=$(cut -d, -f4 $FILENAME | sort -ru | head -n1)
-echo "Max instr: $MAX"

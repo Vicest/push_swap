@@ -6,13 +6,12 @@
 /*   By: vicmarti <vicmarti@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/17 17:34:20 by vicmarti          #+#    #+#             */
-/*   Updated: 2021/08/17 20:58:03 by vicmarti         ###   ########.fr       */
+/*   Updated: 2021/08/20 20:01:46 by vicmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//TODO INSTR should disappear
 char	*run_algorithms(t_ps *ps)
 {
 	size_t	blocks;
